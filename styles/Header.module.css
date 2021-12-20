@@ -1,8 +1,9 @@
-.header {
+/* .header {
   background-color: var(--main-bg);
   color: var(--main-color);
+  font-style: 5rem;
 }
 
 .header__item ~ .header__item {
   margin-left: 15px;
-}
+} */
