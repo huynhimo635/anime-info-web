@@ -1,0 +1,8 @@
+.header {
+  background-color: var(--main-bg);
+  color: var(--main-color);
+}
+
+.header__item ~ .header__item {
+  margin-left: 15px;
+}
