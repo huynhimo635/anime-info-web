@@ -96,7 +96,7 @@ const Header = (props) => {
   return (
     <ThemeProvider theme={darkTheme}>
       <header>
-        <AppBar position="sticky" sx={{ background: "#000" }}>
+        <AppBar position="fixed" sx={{ background: "#000" }}>
           <Container maxWidth="xxl">
             <Toolbar disableGutters id="back-to-top-anchor">
               <Typography
@@ -183,6 +183,7 @@ const Header = (props) => {
             <KeyboardArrowUpIcon />
           </Fab>
         </ScrollTop>
+        <Toolbar />
       </header>
     </ThemeProvider>
   );
