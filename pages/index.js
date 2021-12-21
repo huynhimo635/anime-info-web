@@ -1,78 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-
 import { getData } from "../redux/seasonal/seasonSlice";
+
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 
 export default function Home() {
   const dispatch = useDispatch();
 
   return (
-    <div>
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        expedita praesentium magni error pariatur delectus assumenda architecto
-        nobis odio, voluptatum, officia nesciunt. Sint magnam blanditiis iure
-        sit rerum, eaque delectus.
-      </h1>
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        expedita praesentium magni error pariatur delectus assumenda architecto
-        nobis odio, voluptatum, officia nesciunt. Sint magnam blanditiis iure
-        sit rerum, eaque delectus.
-      </h1>
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        expedita praesentium magni error pariatur delectus assumenda architecto
-        nobis odio, voluptatum, officia nesciunt. Sint magnam blanditiis iure
-        sit rerum, eaque delectus.
-      </h1>
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        expedita praesentium magni error pariatur delectus assumenda architecto
-        nobis odio, voluptatum, officia nesciunt. Sint magnam blanditiis iure
-        sit rerum, eaque delectus.
-      </h1>
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        expedita praesentium magni error pariatur delectus assumenda architecto
-        nobis odio, voluptatum, officia nesciunt. Sint magnam blanditiis iure
-        sit rerum, eaque delectus.
-      </h1>
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        expedita praesentium magni error pariatur delectus assumenda architecto
-        nobis odio, voluptatum, officia nesciunt. Sint magnam blanditiis iure
-        sit rerum, eaque delectus.
-      </h1>
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        expedita praesentium magni error pariatur delectus assumenda architecto
-        nobis odio, voluptatum, officia nesciunt. Sint magnam blanditiis iure
-        sit rerum, eaque delectus.
-      </h1>
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        expedita praesentium magni error pariatur delectus assumenda architecto
-        nobis odio, voluptatum, officia nesciunt. Sint magnam blanditiis iure
-        sit rerum, eaque delectus.
-      </h1>
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        expedita praesentium magni error pariatur delectus assumenda architecto
-        nobis odio, voluptatum, officia nesciunt. Sint magnam blanditiis iure
-        sit rerum, eaque delectus.
-      </h1>
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        expedita praesentium magni error pariatur delectus assumenda architecto
-        nobis odio, voluptatum, officia nesciunt. Sint magnam blanditiis iure
-        sit rerum, eaque delectus.
-      </h1>
-      <h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        expedita praesentium magni error pariatur delectus assumenda architecto
-        nobis odio, voluptatum, officia nesciunt. Sint magnam blanditiis iure
-        sit rerum, eaque delectus.
-      </h1>
+    <div className="season">
+      <div className="menu">
+        <Toolbar></Toolbar>
+      </div>
+      <div className="content"></div>
     </div>
   );
 }

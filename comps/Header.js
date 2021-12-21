@@ -1,6 +1,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Link from "next/link";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -16,9 +17,7 @@ import Zoom from "@mui/material/Zoom";
 import Fab from "@mui/material/Fab";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 
-import Link from "next/link";
-
-// import styles from "../styles/Header.module.css";
+import styles from "../styles/Header.module.css";
 
 const pages = [
   {
@@ -27,7 +26,7 @@ const pages = [
   },
   {
     name: "Search",
-    slug: "search",
+    slug: "/search",
   },
 ];
 
@@ -72,15 +71,6 @@ ScrollTop.propTypes = {
   window: PropTypes.func,
 };
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#1976d2",
-    },
-  },
-});
-
 const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -91,101 +81,102 @@ const Header = (props) => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  const logoName = "AnimeDB";
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <header>
-        <AppBar position="fixed" sx={{ background: "#000" }}>
-          <Container maxWidth="xxl">
-            <Toolbar disableGutters id="back-to-top-anchor">
-              <Typography
-                variant="h3"
-                noWrap
-                component="div"
-                sx={{ mr: 5, display: { xs: "none", md: "flex" } }}
-              >
-                {logoName}
+    <header className={styles.header}>
+      <AppBar position="fixed" className={styles.appbar}>
+        <Container maxWidth="xxl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h3"
+              noWrap
+              component="div"
+              sx={{ mr: 5, display: { xs: "none", md: "flex" } }}
+            >
+              Anime
+              <Typography variant="h3" noWrap color="red">
+                DB
               </Typography>
-
-              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleOpenNavMenu}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorElNav}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                  }}
-                  open={Boolean(anchorElNav)}
-                  onClose={handleCloseNavMenu}
-                  sx={{
-                    display: { xs: "block", md: "none" },
-                  }}
-                >
-                  {pages.map((page, index) => (
-                    <MenuItem key={index} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">
-                        <Link href={page.slug}>
-                          <a>{page.name}</a>
-                        </Link>
-                      </Typography>
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                {logoName}
-              </Typography>
-              <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
                 {pages.map((page, index) => (
-                  <Button
-                    key={index}
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
-                      mr: 5,
-                      fontSize: "1.5rem",
-                    }}
-                  >
-                    <Link href={page.slug}>
-                      <a>{page.name}</a>
-                    </Link>
-                  </Button>
+                  <MenuItem key={index} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">
+                      <Link href={page.slug}>
+                        <a>{page.name}</a>
+                      </Link>
+                    </Typography>
+                  </MenuItem>
                 ))}
-              </Box>
-            </Toolbar>
-          </Container>
-        </AppBar>
-        <ScrollTop {...props}>
-          <Fab color="main" size="large">
-            <KeyboardArrowUpIcon />
-          </Fab>
-        </ScrollTop>
-        <Toolbar />
-      </header>
-    </ThemeProvider>
+              </Menu>
+            </Box>
+            <Typography
+              variant="h5"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            >
+              Anime
+              <Typography variant="h5" noWrap component="div" color="red">
+                DB
+              </Typography>
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages.map((page, index) => (
+                <Button
+                  key={index}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    mr: 5,
+                    fontSize: "1.5rem",
+                  }}
+                >
+                  <Link href={page.slug}>
+                    <a>{page.name}</a>
+                  </Link>
+                </Button>
+              ))}
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <ScrollTop {...props}>
+        <Fab color="main" size="large">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
+    </header>
   );
 };
 export default Header;
