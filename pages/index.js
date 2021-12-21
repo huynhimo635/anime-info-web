@@ -1,7 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../redux/seasonal/seasonSlice";
-
-import AppBar from "@mui/material/AppBar";
 import * as React from "react";
 import PropTypes from "prop-types";
 
@@ -15,9 +13,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
+import Grid from "@mui/material/Grid";
+
+import ProductCard from "../comps/ProductCard";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,58 +51,70 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const [value, setValue] = React.useState(0);
+  const [sort, setSort] = React.useState("");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const [age, setAge] = React.useState("");
-
   const handleChangeSort = (event) => {
-    setAge(event.target.value);
+    setSort(event.target.value);
   };
 
   return (
     <div className="season">
       <div className="menu">
         <Box sx={{ flexGrow: 1, mt: 5 }}>
-          <Toolbar disableGutters>
-            <Toolbar disableGutters>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="left"
-                sx={{ mr: 2 }}
-              >
-                <ChevronLeftIcon />
-              </IconButton>
-              <Typography
-                variant="h4"
-                component="div"
-                noWrap
-                sx={{ flexGrow: 1, mr: 2 }}
-              >
-                Seasonal Year
-              </Typography>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="right"
-                sx={{ mr: 2 }}
-              >
-                <ChevronRightIcon />
-              </IconButton>
-            </Toolbar>
+          <Toolbar
+            disableGutters
+            sx={{ flexDirection: { xs: "column", md: "row" } }}
+          >
+            <Box>
+              <Toolbar disableGutters>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="left"
+                  sx={{ mr: 2 }}
+                >
+                  <ChevronLeftIcon />
+                </IconButton>
+                <Typography
+                  variant="h4"
+                  component="div"
+                  noWrap
+                  sx={{ flexGrow: 1, mr: 2 }}
+                >
+                  Seasonal Year
+                </Typography>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="right"
+                >
+                  <ChevronRightIcon />
+                </IconButton>
+              </Toolbar>
+            </Box>
 
-            <Box sx={{ width: "100%", borderBottom: 1, borderColor: "black" }}>
+            <Box
+              sx={{
+                width: "100%",
+                borderBottom: 1,
+                borderColor: "black",
+              }}
+            >
               <Tabs
                 value={value}
                 onChange={handleChange}
-                aria-label="basic tabs example"
                 textColor="white"
                 indicatorColor="secondary"
+                variant="scrollable"
+                scrollButtons="auto"
+                allowScrollButtonsMobile
+                aria-label="scrollable auto tabs example"
               >
                 <Tab label="TV" {...a11yProps(0)} />
                 <Tab label="Movie" {...a11yProps(1)} />
@@ -112,10 +123,10 @@ export default function Home() {
               </Tabs>
             </Box>
 
-            <Box sx={{ textJustify: "flex-end" }}>
+            <Box sx={{ alignSelf: "flex-end" }}>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <Select
-                  value={age}
+                  value={sort}
                   onChange={handleChangeSort}
                   displayEmpty
                   inputProps={{ "aria-label": "Without label" }}
@@ -133,7 +144,17 @@ export default function Home() {
       </div>
       <div className="content">
         <TabPanel value={value} index={0}>
-          Item One
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <ProductCard />
+            </Grid>
+            <Grid item xs={4}>
+              <ProductCard />
+            </Grid>
+            <Grid item xs={4}>
+              <ProductCard />
+            </Grid>
+          </Grid>
         </TabPanel>
         <TabPanel value={value} index={1}>
           Item Two
