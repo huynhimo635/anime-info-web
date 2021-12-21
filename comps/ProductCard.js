@@ -18,6 +18,7 @@ const ProductCard = (props) => {
         image_url: "",
         producers: [{ name: "" }],
         synopsis: "",
+        episodes: "?",
       };
 
   return (
@@ -25,7 +26,8 @@ const ProductCard = (props) => {
       sx={{
         display: "flex",
         flexDirection: { md: "row", xs: "column" },
-        height: "250px",
+        height: { md: "250px", xs: "100%" },
+        overflow: "hidden",
       }}
     >
       <CardMedia
@@ -37,7 +39,16 @@ const ProductCard = (props) => {
         alt="Live from space album cover"
       />
       <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <CardContent sx={{ flex: "1 0 auto" }}>
+        <CardContent
+          sx={{
+            flex: "1 0 auto",
+            overflow: "hidden",
+            height: "200px",
+            textOverflow: "ellipsis",
+            marginBottom: "16px",
+          }}
+          component="div"
+        >
           <Typography component="div" variant="h5">
             {data.title}
           </Typography>
@@ -53,7 +64,7 @@ const ProductCard = (props) => {
             color="text.secondary"
             component="div"
           >
-            {data.episodes} episodes
+            {data.episodes ? data.episodes : "1"} episodes
           </Typography>
           <Typography
             variant="body2"
@@ -61,10 +72,8 @@ const ProductCard = (props) => {
             component="div"
             sx={{
               display: "flex",
-              overflow: "hidden",
-              height: "calc(100% - 24px)",
-              marginBottom: "24px",
-              textOverflow: "ellipsis",
+              // overflow: "auto",
+              // width: "100%",
             }}
           >
             {data.synopsis}
