@@ -1,18 +1,21 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: process.env.BASE_URL_API,
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+
   headers: {
-    "concent-type": "application/json",
+    "content-type": "application/json",
   },
 });
 
 axiosClient.interceptors.request.use(async (config) => {
   //handle token
+
+  return config;
 });
 
 axiosClient.interceptors.response.use(
-  async (response) => {
+  (response) => {
     if (response && response.data) return response.data;
     return response;
   },

@@ -51,10 +51,12 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const fetchData = async () => {
-    await dispatch(getData("2021", "fall"));
+    await dispatch(getData({ year: 2021, seasonal: "fall" }));
   };
 
-  fetchData();
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   const [value, setValue] = React.useState(0);
   const [sort, setSort] = React.useState("");

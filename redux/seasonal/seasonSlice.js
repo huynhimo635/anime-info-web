@@ -1,10 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import seasonalApi from "../../service/seasonalApi";
 
-export const getData = createAsyncThunk("season", async (year, season) => {
-  const res = await seasonalApi.get(year, season);
-  return res.anime;
-});
+export const getData = createAsyncThunk(
+  "season",
+  async ({ year, seasonal }) => {
+    console.log(year, seasonal);
+    const res = await seasonalApi.get(year, seasonal);
+    return res.anime;
+  }
+);
 
 const seasonSlice = createSlice({
   name: "season",
