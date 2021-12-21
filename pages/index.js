@@ -157,10 +157,10 @@ export default function Home() {
           TV
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          Movies
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Item Three
+          OVAs & Others
         </TabPanel>
         <TabPanel value={value} index={3}>
           <Grid container spacing={2}>
