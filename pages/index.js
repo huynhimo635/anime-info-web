@@ -50,6 +50,12 @@ function a11yProps(index) {
 export default function Home() {
   const dispatch = useDispatch();
 
+  const fetchData = async () => {
+    await dispatch(getData("2021", "fall"));
+  };
+
+  fetchData();
+
   const [value, setValue] = React.useState(0);
   const [sort, setSort] = React.useState("");
 
@@ -145,13 +151,13 @@ export default function Home() {
       <div className="content">
         <TabPanel value={value} index={0}>
           <Grid container spacing={2}>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <ProductCard />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <ProductCard />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <ProductCard />
             </Grid>
           </Grid>
