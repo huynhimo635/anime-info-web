@@ -4,7 +4,6 @@ import seasonalApi from "../../service/seasonalApi";
 export const getData = createAsyncThunk(
   "season",
   async ({ year, seasonal }) => {
-    console.log(year, seasonal);
     const res = await seasonalApi.get(year, seasonal);
     return res.anime;
   }

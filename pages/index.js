@@ -50,6 +50,8 @@ function a11yProps(index) {
 export default function Home() {
   const dispatch = useDispatch();
 
+  const allData = useSelector((state) => state.season.allData);
+
   const fetchData = async () => {
     await dispatch(getData({ year: 2021, seasonal: "fall" }));
   };
@@ -152,17 +154,7 @@ export default function Home() {
       </div>
       <div className="content">
         <TabPanel value={value} index={0}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
-              <ProductCard />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <ProductCard />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <ProductCard />
-            </Grid>
-          </Grid>
+          TV
         </TabPanel>
         <TabPanel value={value} index={1}>
           Item Two
@@ -171,7 +163,24 @@ export default function Home() {
           Item Three
         </TabPanel>
         <TabPanel value={value} index={3}>
-          Item Four
+          <Grid container spacing={2}>
+            {/* <Grid item xs={12} md={4}>
+              <ProductCard />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <ProductCard />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <ProductCard />
+            </Grid> */}
+            {allData.length > 0
+              ? allData.map((data, key) => (
+                  <Grid item xs={12} md={4} key={key}>
+                    <ProductCard data={data} />
+                  </Grid>
+                ))
+              : null}
+          </Grid>
         </TabPanel>
       </div>
     </div>

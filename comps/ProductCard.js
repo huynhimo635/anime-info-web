@@ -21,7 +21,13 @@ const ProductCard = (props) => {
       };
 
   return (
-    <Card sx={{ display: "flex", flexDirection: { md: "row", xs: "column" } }}>
+    <Card
+      sx={{
+        display: "flex",
+        flexDirection: { md: "row", xs: "column" },
+        height: "250px",
+      }}
+    >
       <CardMedia
         component="img"
         sx={{
@@ -35,13 +41,13 @@ const ProductCard = (props) => {
           <Typography component="div" variant="h5">
             {data.title}
           </Typography>
-          <Typography
+          {/* <Typography
             variant="subtitle1"
             color="text.secondary"
             component="div"
           >
             {data.producers[0].name}
-          </Typography>
+          </Typography> */}
           <Typography
             variant="subtitle1"
             color="text.secondary"
@@ -56,7 +62,8 @@ const ProductCard = (props) => {
             sx={{
               display: "flex",
               overflow: "hidden",
-              height: "50px",
+              height: "calc(100% - 24px)",
+              marginBottom: "24px",
               textOverflow: "ellipsis",
             }}
           >
