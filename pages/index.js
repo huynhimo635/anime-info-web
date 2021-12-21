@@ -14,6 +14,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import { textAlign } from "@mui/system";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -26,11 +27,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -91,23 +88,26 @@ export default function Home() {
               </IconButton>
             </Toolbar>
 
-            <Box sx={{ flexDirection: "row" }}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="basic tabs example"
-                  textColor="secondary"
-                  indicatorColor="secondary"
-                >
-                  <Tab label="Item One" {...a11yProps(0)} />
-                  <Tab label="Item Two" {...a11yProps(1)} />
-                  <Tab label="Item Three" {...a11yProps(2)} />
-                </Tabs>
-              </Box>
+            <Box
+              sx={{ width: "100%", borderBottom: 1, borderColor: "divider" }}
+            >
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+                textColor="white"
+                indicatorColor="secondary"
+              >
+                <Tab label="TV" {...a11yProps(0)} />
+                <Tab label="Movie" {...a11yProps(1)} />
+                <Tab label="OVAs & Others" {...a11yProps(2)} />
+                <Tab label="All" {...a11yProps(3)} />
+              </Tabs>
             </Box>
 
-            <Button color="inherit">Login</Button>
+            <Box sx={{ textJustify: "flex-end" }}>
+              <Button color="inherit">Login</Button>
+            </Box>
           </Toolbar>
         </Box>
       </div>
@@ -120,6 +120,9 @@ export default function Home() {
         </TabPanel>
         <TabPanel value={value} index={2}>
           Item Three
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          Item Four
         </TabPanel>
       </div>
     </div>

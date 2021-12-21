@@ -94,7 +94,7 @@ const Header = (props) => {
               sx={{ mr: 5, display: { xs: "none", md: "flex" } }}
             >
               Anime
-              <Typography variant="h3" noWrap color="red">
+              <Typography variant="h3" noWrap color="#9c27b0">
                 DB
               </Typography>
             </Typography>
@@ -106,7 +106,7 @@ const Header = (props) => {
               sx={{ display: { xs: "flex", md: "none" } }}
             >
               Anime
-              <Typography variant="h5" component="div" color="red">
+              <Typography variant="h5" component="div" color="#9c27b0">
                 DB
               </Typography>
             </Typography>
