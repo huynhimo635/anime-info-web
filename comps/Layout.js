@@ -16,18 +16,16 @@ const darkTheme = createTheme({
 });
 const Layout = ({ children }) => {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <div className="layout">
-        <Head>
-          <title>AnimeDB</title>
-        </Head>
+    <div className="layout">
+      <Head>
+        <title>AnimeDB</title>
+      </Head>
 
-        <Header />
-        <Toolbar id="back-to-top-anchor" className={styles.break} />
+      <Header />
+      <Toolbar id="back-to-top-anchor" className={styles.break} />
 
-        <Container maxWidth="xl">{children}</Container>
-      </div>
-    </ThemeProvider>
+      <Container maxWidth="xl">{children}</Container>
+    </div>
   );
 };
 

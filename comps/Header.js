@@ -98,57 +98,19 @@ const Header = (props) => {
                 DB
               </Typography>
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                }}
-              >
-                {pages.map((page, index) => (
-                  <MenuItem key={index} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">
-                      <Link href={page.slug}>
-                        <a>{page.name}</a>
-                      </Link>
-                    </Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+
             <Typography
               variant="h5"
               noWrap
               component="div"
-              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+              sx={{ display: { xs: "flex", md: "none" } }}
             >
               Anime
-              <Typography variant="h5" noWrap component="div" color="red">
+              <Typography variant="h5" component="div" color="red">
                 DB
               </Typography>
             </Typography>
+
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page, index) => (
                 <Button
@@ -160,6 +122,23 @@ const Header = (props) => {
                     display: "block",
                     mr: 5,
                     fontSize: "1.5rem",
+                  }}
+                >
+                  <Link href={page.slug}>
+                    <a>{page.name}</a>
+                  </Link>
+                </Button>
+              ))}
+            </Box>
+
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              {pages.map((page, index) => (
+                <Button
+                  key={index}
+                  sx={{
+                    color: "white",
+                    flexWrap: "wrap",
+                    // fontSize: "1rem",
                   }}
                 >
                   <Link href={page.slug}>
