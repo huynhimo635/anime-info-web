@@ -8,13 +8,16 @@ import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { textAlign } from "@mui/system";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -54,6 +57,12 @@ export default function Home() {
     setValue(newValue);
   };
 
+  const [age, setAge] = React.useState("");
+
+  const handleChangeSort = (event) => {
+    setAge(event.target.value);
+  };
+
   return (
     <div className="season">
       <div className="menu">
@@ -88,9 +97,7 @@ export default function Home() {
               </IconButton>
             </Toolbar>
 
-            <Box
-              sx={{ width: "100%", borderBottom: 1, borderColor: "divider" }}
-            >
+            <Box sx={{ width: "100%", borderBottom: 1, borderColor: "black" }}>
               <Tabs
                 value={value}
                 onChange={handleChange}
@@ -106,7 +113,20 @@ export default function Home() {
             </Box>
 
             <Box sx={{ textJustify: "flex-end" }}>
-              <Button color="inherit">Login</Button>
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <Select
+                  value={age}
+                  onChange={handleChangeSort}
+                  displayEmpty
+                  inputProps={{ "aria-label": "Without label" }}
+                >
+                  <MenuItem value="">
+                    <em>Sort by</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Ascending</MenuItem>
+                  <MenuItem value={20}>Descending</MenuItem>
+                </Select>
+              </FormControl>
             </Box>
           </Toolbar>
         </Box>
