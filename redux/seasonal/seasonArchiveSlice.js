@@ -11,7 +11,19 @@ if (typeof window !== "undefined") {
   if (localStorage.getItem("curSeason"))
     initialShow = JSON.parse(localStorage.getItem("curSeason"));
   else {
-    initialShow = {};
+    const curYear = new Date().getFullYear();
+    const curMonth = new Date().getMonth();
+
+    initialShow.year = curYear;
+    if (curMonth < 4) {
+      initialShow.season = "winter";
+    } else if (curMonth < 7) {
+      initialShow.season = "spring";
+    } else if (curMonth < 10) {
+      initialShow.season = "summer";
+    } else initialShow.season = "fall";
+
+    localStorage.setItem("curSeason", JSON.stringify(initialShow));
   }
 }
 
