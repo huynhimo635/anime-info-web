@@ -45,6 +45,12 @@ const ProductCard = (props) => {
             height: "200px",
             textOverflow: "ellipsis",
             marginBottom: "16px",
+            "&:hover": {
+              overflow: "auto",
+            },
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
           }}
           component="div"
         >
