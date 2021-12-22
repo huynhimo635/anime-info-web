@@ -61,7 +61,6 @@ export default function Home() {
     const fetchData = async () => {
       await dispatch(seasonArchive.getData());
     };
-
     fetchData();
   }, []);
 
@@ -86,6 +85,9 @@ export default function Home() {
 
   const handleChangeSort = (event) => {
     setSort(event.target.value);
+
+    if (event.target.value === "ASC") dispatch(season.ASC());
+    if (event.target.value === "DESC") dispatch(season.DESC());
   };
 
   return (
@@ -161,11 +163,11 @@ export default function Home() {
                   displayEmpty
                   inputProps={{ "aria-label": "Without label" }}
                 >
-                  <MenuItem value="">
+                  <MenuItem disabled value="">
                     <em>Sort by</em>
                   </MenuItem>
-                  <MenuItem value={10}>Ascending</MenuItem>
-                  <MenuItem value={20}>Descending</MenuItem>
+                  <MenuItem value="ASC">Ascending</MenuItem>
+                  <MenuItem value="DESC">Descending</MenuItem>
                 </Select>
               </FormControl>
             </Box>

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import seasonalApi from "../../service/seasonalApi";
 
 export const getData = createAsyncThunk(
@@ -19,7 +19,58 @@ const seasonSlice = createSlice({
     loading: false,
     error: false,
   },
-  reducers: {},
+  reducers: {
+    DESC: (state) => {
+      state.allData = [...current(state.allData)].sort((a, b) => {
+        if (a.title > b.title) return -1;
+        if (a.title < b.title) return 1;
+        return 0;
+      });
+
+      state.tvData = [...current(state.tvData)].sort((a, b) => {
+        if (a.title > b.title) return -1;
+        if (a.title < b.title) return 1;
+        return 0;
+      });
+
+      state.movieData = [...current(state.movieData)].sort((a, b) => {
+        if (a.title > b.title) return -1;
+        if (a.title < b.title) return 1;
+        return 0;
+      });
+
+      state.otherData = [...current(state.otherData)].sort((a, b) => {
+        if (a.title > b.title) return -1;
+        if (a.title < b.title) return 1;
+        return 0;
+      });
+    },
+    ASC: (state) => {
+      state.allData = [...current(state.allData)].sort((a, b) => {
+        if (a.title > b.title) return 1;
+        if (a.title < b.title) return -1;
+        return 0;
+      });
+
+      state.tvData = [...current(state.tvData)].sort((a, b) => {
+        if (a.title > b.title) return 1;
+        if (a.title < b.title) return -1;
+        return 0;
+      });
+
+      state.movieData = [...current(state.movieData)].sort((a, b) => {
+        if (a.title > b.title) return 1;
+        if (a.title < b.title) return -1;
+        return 0;
+      });
+
+      state.otherData = [...current(state.otherData)].sort((a, b) => {
+        if (a.title > b.title) return 1;
+        if (a.title < b.title) return -1;
+        return 0;
+      });
+    },
+  },
   extraReducers: {
     [getData.pending]: (state) => {
       state.loading = true;
@@ -53,5 +104,6 @@ const seasonSlice = createSlice({
   },
 });
 
+export const { ASC, DESC } = seasonSlice.actions;
 const { reducer: seasonReducer } = seasonSlice;
 export default seasonReducer;
