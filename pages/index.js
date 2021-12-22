@@ -1,7 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { getData } from "../redux/seasonal/seasonSlice";
 import * as React from "react";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import * as season from "../redux/seasonal/seasonSlice";
+import * as seasonArchive from "../redux/seasonal/seasonArchiveSlice";
 
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -51,13 +52,19 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const allData = useSelector((state) => state.season.allData);
+  const archiveData = useSelector((state) => state.seasonArchive.data);
 
   const fetchData = async () => {
-    await dispatch(getData({ year: 2021, seasonal: "fall" }));
+    await dispatch(season.getData({ year: 2021, seasonal: "fall" }));
+  };
+
+  const fetchArchive = async () => {
+    await dispatch(seasonArchive.getData());
   };
 
   React.useEffect(() => {
     if (allData.length === 0) fetchData();
+    fetchArchive();
   }, []);
 
   const [value, setValue] = React.useState(0);

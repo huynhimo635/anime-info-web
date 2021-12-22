@@ -1,13 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import seasonalApi from "../../service/seasonalApi";
 
-export const getData = createAsyncThunk(
-  "season/archive",
-  async ({ year, seasonal }) => {
-    const res = await seasonalApi.get(year, seasonal);
-    return res.archive;
-  }
-);
+export const getData = createAsyncThunk("season/archive", async () => {
+  const res = await seasonalApi.getSeasonArchive();
+  return res.archive;
+});
 
 const seasonArchiveSlice = createSlice({
   name: "seasonArchive",
@@ -30,19 +27,7 @@ const seasonArchiveSlice = createSlice({
 
     [getData.fulfilled]: (state, action) => {
       state.loading = false;
-      state.allData = action.payload;
-
-      state.tvData = state.allData.filter(
-        (item) => item.type.toLowerCase() === "tv"
-      );
-      state.movieData = state.allData.filter(
-        (item) => item.type.toLowerCase() === "movie"
-      );
-      state.otherData = state.allData.filter(
-        (item) =>
-          item.type.toLowerCase() !== "tv" &&
-          item.type.toLowerCase() !== "movie"
-      );
+      state.data = action.payload;
     },
   },
 });
