@@ -84,7 +84,7 @@ const Header = (props) => {
 
   return (
     <header className={styles.header}>
-      <AppBar position="fixed" className={styles.appbar}>
+      <AppBar position="fixed" sx={{ backgroundColor: "rgba(0, 0, 0, 0.95)" }}>
         <Container maxWidth="xxl">
           <Toolbar disableGutters>
             <Typography
@@ -94,7 +94,7 @@ const Header = (props) => {
               sx={{ mr: 5, display: { xs: "none", md: "flex" } }}
             >
               Anime
-              <Typography variant="h3" noWrap color="#9c27b0">
+              <Typography variant="h3" noWrap color="#ce93d8">
                 DB
               </Typography>
             </Typography>
@@ -106,7 +106,7 @@ const Header = (props) => {
               sx={{ display: { xs: "flex", md: "none" } }}
             >
               Anime
-              <Typography variant="h5" component="div" color="#9c27b0">
+              <Typography variant="h5" component="div" color="#ce93d8">
                 DB
               </Typography>
             </Typography>

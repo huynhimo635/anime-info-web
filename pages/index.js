@@ -57,7 +57,7 @@ export default function Home() {
   };
 
   React.useEffect(() => {
-    fetchData();
+    if (allData.length === 0) fetchData();
   }, []);
 
   const [value, setValue] = React.useState(0);
