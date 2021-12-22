@@ -107,7 +107,10 @@ export default function Home() {
                   color="inherit"
                   aria-label="left"
                   sx={{ mr: 2 }}
-                  onClick={() => dispatch(seasonArchive.back())}
+                  onClick={() => {
+                    dispatch(seasonArchive.back());
+                    setSort("");
+                  }}
                 >
                   <ChevronLeftIcon />
                 </IconButton>
@@ -124,7 +127,10 @@ export default function Home() {
                   edge="start"
                   color="inherit"
                   aria-label="right"
-                  onClick={() => dispatch(seasonArchive.next())}
+                  onClick={() => {
+                    dispatch(seasonArchive.next());
+                    setSort("");
+                  }}
                 >
                   <ChevronRightIcon />
                 </IconButton>
