@@ -16,6 +16,10 @@ const ProductCard = (props) => {
         episodes: "?",
       };
 
+  const nameProduct = data.producers
+    ? data.producers.map((item) => item.name)
+    : [];
+
   return (
     <Card
       sx={{
@@ -47,19 +51,20 @@ const ProductCard = (props) => {
           <Typography component="div" variant="h5">
             {data.title}
           </Typography>
-          {/* <Typography
+          <Typography
             variant="subtitle1"
             color="text.secondary"
             component="div"
+            sx={{ textTransform: "capitalize" }}
           >
-            {data.producers[0].name}
-          </Typography> */}
+            {nameProduct.length > 0 ? nameProduct.join("  &  ") : "----"}
+          </Typography>
           <Typography
             variant="subtitle1"
             color="text.secondary"
             component="div"
           >
-            {data.episodes ? data.episodes : "1"} episodes
+            {data.episodes ? data.episodes : "--"} episodes
           </Typography>
           <Typography
             variant="body2"
