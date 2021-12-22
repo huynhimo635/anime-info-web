@@ -1,4 +1,4 @@
-import axiosClient from "./axiosSlice";
+import axiosClient from "./axiosClient";
 
 const seasonalApi = {
   get: (year, season) => {

@@ -55,9 +55,8 @@ export default function Home() {
   const archiveData = useSelector((state) => state.seasonArchive.data);
 
   const fetchData = async () => {
-    await dispatch(season.getData({ year: 2021, seasonal: "fall" }));
+    await dispatch(season.getData({ year: 2022, seasonal: "spring" }));
   };
-
   const fetchArchive = async () => {
     await dispatch(seasonArchive.getData());
   };
@@ -65,6 +64,10 @@ export default function Home() {
   React.useEffect(() => {
     if (allData.length === 0) fetchData();
     fetchArchive();
+
+    // if (seasonShow === undefined) {
+    //   const
+    // }
   }, []);
 
   const [value, setValue] = React.useState(0);
