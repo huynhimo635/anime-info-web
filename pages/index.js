@@ -50,9 +50,12 @@ function a11yProps(index) {
 
 export default function Home() {
   const dispatch = useDispatch();
+  const curSeason = useSelector((state) => state.seasonArchive.curSeason);
 
   const allData = useSelector((state) => state.season.allData);
-  const curSeason = useSelector((state) => state.seasonArchive.curSeason);
+  const tvData = useSelector((state) => state.season.tvData);
+  const movieData = useSelector((state) => state.season.movieData);
+  const otherData = useSelector((state) => state.season.otherData);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -93,6 +96,7 @@ export default function Home() {
             disableGutters
             sx={{ flexDirection: { xs: "column", md: "row" } }}
           >
+            {/* Seasonal */}
             <Box>
               <Toolbar disableGutters>
                 <IconButton
@@ -124,7 +128,7 @@ export default function Home() {
                 </IconButton>
               </Toolbar>
             </Box>
-
+            {/* Menu TYPE */}
             <Box
               sx={{
                 width: "100%",
@@ -148,7 +152,7 @@ export default function Home() {
                 <Tab label="All" {...a11yProps(3)} />
               </Tabs>
             </Box>
-
+            {/* Sort */}
             <Box sx={{ alignSelf: "flex-end" }}>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <Select
@@ -168,27 +172,47 @@ export default function Home() {
           </Toolbar>
         </Box>
       </div>
+
       <div className="content">
+        {/* TV */}
         <TabPanel value={value} index={0}>
-          TV
+          <Grid container spacing={2}>
+            {tvData.length > 0
+              ? tvData.map((data, key) => (
+                  <Grid item xs={12} md={4} key={key}>
+                    <ProductCard data={data} />
+                  </Grid>
+                ))
+              : null}
+          </Grid>
         </TabPanel>
+        {/* Movie */}
         <TabPanel value={value} index={1}>
-          Movies
+          <Grid container spacing={2}>
+            {movieData.length > 0
+              ? movieData.map((data, key) => (
+                  <Grid item xs={12} md={4} key={key}>
+                    <ProductCard data={data} />
+                  </Grid>
+                ))
+              : null}
+          </Grid>
         </TabPanel>
+        {/* OVAs & Others */}
         <TabPanel value={value} index={2}>
-          OVAs & Others
+          <Grid container spacing={2}>
+            {otherData.length > 0
+              ? otherData.map((data, key) => (
+                  <Grid item xs={12} md={4} key={key}>
+                    <ProductCard data={data} />
+                  </Grid>
+                ))
+              : null}
+          </Grid>
         </TabPanel>
+        {/* All */}
         <TabPanel value={value} index={3}>
           <Grid container spacing={2}>
-            {/* <Grid item xs={12} md={4}>
-              <ProductCard />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <ProductCard />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <ProductCard />
-            </Grid> */}
             {allData.length > 0
               ? allData.map((data, key) => (
                   <Grid item xs={12} md={4} key={key}>
