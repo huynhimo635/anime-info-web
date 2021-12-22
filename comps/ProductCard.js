@@ -16,7 +16,7 @@ const ProductCard = (props) => {
         episodes: "?",
       };
 
-  const nameProduct = data.producers
+  const nameProducers = data.producers
     ? data.producers.map((item) => item.name)
     : [];
 
@@ -57,7 +57,7 @@ const ProductCard = (props) => {
             component="div"
             sx={{ textTransform: "capitalize" }}
           >
-            {nameProduct.length > 0 ? nameProduct.join("  &  ") : "----"}
+            {nameProducers.length > 0 ? nameProducers.join("  &  ") : "----"}
           </Typography>
           <Typography
             variant="subtitle1"
@@ -72,8 +72,6 @@ const ProductCard = (props) => {
             component="div"
             sx={{
               display: "flex",
-              // overflow: "auto",
-              // width: "100%",
             }}
           >
             {data.synopsis}

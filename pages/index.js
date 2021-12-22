@@ -57,6 +57,20 @@ export default function Home() {
   const movieData = useSelector((state) => state.season.movieData);
   const otherData = useSelector((state) => state.season.otherData);
 
+  const [value, setValue] = React.useState(0);
+  const [sort, setSort] = React.useState("");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleChangeSort = (event) => {
+    setSort(event);
+
+    if (event === "ASC") dispatch(season.ASC());
+    if (event === "DESC") dispatch(season.DESC());
+  };
+
   React.useEffect(() => {
     const fetchData = async () => {
       await dispatch(seasonArchive.getData());
@@ -70,25 +84,11 @@ export default function Home() {
         await dispatch(
           season.getData({ year: curSeason.year, seasonal: curSeason.season })
         );
+        await handleChangeSort(sort);
       }
     };
-
     fetchData();
   }, [curSeason]);
-
-  const [value, setValue] = React.useState(0);
-  const [sort, setSort] = React.useState("");
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChangeSort = (event) => {
-    setSort(event.target.value);
-
-    if (event.target.value === "ASC") dispatch(season.ASC());
-    if (event.target.value === "DESC") dispatch(season.DESC());
-  };
 
   return (
     <div className="season">
@@ -109,7 +109,6 @@ export default function Home() {
                   sx={{ mr: 2 }}
                   onClick={() => {
                     dispatch(seasonArchive.back());
-                    setSort("");
                   }}
                 >
                   <ChevronLeftIcon />
@@ -129,7 +128,6 @@ export default function Home() {
                   aria-label="right"
                   onClick={() => {
                     dispatch(seasonArchive.next());
-                    setSort("");
                   }}
                 >
                   <ChevronRightIcon />
@@ -165,7 +163,7 @@ export default function Home() {
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <Select
                   value={sort}
-                  onChange={handleChangeSort}
+                  onChange={(e) => handleChangeSort(e.target.value)}
                   displayEmpty
                   inputProps={{ "aria-label": "Without label" }}
                 >
