@@ -45,7 +45,9 @@ const seasonArchiveSlice = createSlice({
       ) {
         state.curSeason.year = action.payload[0].year.toString();
         state.curSeason.season =
-          action.payload[0].seasons[action.payload[0].seasons.length - 1];
+          action.payload[0].seasons[
+            action.payload[0].seasons.length - 1
+          ].toLowerCase();
 
         localStorage.setItem("curSeason", JSON.stringify(state.curSeason));
       }

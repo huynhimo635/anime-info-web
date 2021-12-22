@@ -52,23 +52,27 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const allData = useSelector((state) => state.season.allData);
-  const archiveData = useSelector((state) => state.seasonArchive.data);
-
-  const fetchData = async () => {
-    await dispatch(season.getData({ year: 2022, seasonal: "spring" }));
-  };
-  const fetchArchive = async () => {
-    await dispatch(seasonArchive.getData());
-  };
+  const curSeason = useSelector((state) => state.seasonArchive.curSeason);
 
   React.useEffect(() => {
-    if (allData.length === 0) fetchData();
-    fetchArchive();
+    const fetchData = async () => {
+      await dispatch(seasonArchive.getData());
+    };
 
-    // if (seasonShow === undefined) {
-    //   const
-    // }
+    fetchData();
   }, []);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      if (curSeason.year !== undefined || curSeason.season !== undefined) {
+        await dispatch(
+          season.getData({ year: curSeason.year, seasonal: curSeason.season })
+        );
+      }
+    };
+
+    fetchData();
+  }, [curSeason]);
 
   const [value, setValue] = React.useState(0);
   const [sort, setSort] = React.useState("");
@@ -104,9 +108,9 @@ export default function Home() {
                   variant="h4"
                   component="div"
                   noWrap
-                  sx={{ flexGrow: 1, mr: 2 }}
+                  sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
                 >
-                  Seasonal Year
+                  {curSeason.season} {curSeason.year}
                 </Typography>
                 <IconButton
                   size="large"
