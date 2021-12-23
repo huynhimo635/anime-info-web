@@ -67,8 +67,22 @@ export default function Home() {
   const handleChangeSort = (event) => {
     setSort(event);
 
-    if (event === "ASC") dispatch(season.ASC());
-    if (event === "DESC") dispatch(season.DESC());
+    switch (event) {
+      case "ASC-TITLE":
+        dispatch(season.ASC("title"));
+        break;
+      case "DESC-TITLE":
+        dispatch(season.DESC("title"));
+        break;
+      case "ASC-SCORE":
+        dispatch(season.ASC("score"));
+        break;
+      case "DESC-SCORE":
+        dispatch(season.DESC("score"));
+        break;
+      default:
+        break;
+    }
   };
 
   React.useEffect(() => {
@@ -170,8 +184,10 @@ export default function Home() {
                   <MenuItem disabled value="">
                     <em>Sort by</em>
                   </MenuItem>
-                  <MenuItem value="ASC">Title - Ascending</MenuItem>
-                  <MenuItem value="DESC">Title - Descending</MenuItem>
+                  <MenuItem value="ASC-TITLE">Title - Ascending</MenuItem>
+                  <MenuItem value="DESC-TITLE">Title - Descending</MenuItem>
+                  <MenuItem value="ASC-SCORE">Score - Ascending</MenuItem>
+                  <MenuItem value="DESC-SCORE">Score - Descending</MenuItem>
                 </Select>
               </FormControl>
             </Box>

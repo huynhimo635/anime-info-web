@@ -40,7 +40,7 @@ const SearchIconWrapper = styled(IconButton)(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
-  width: `calc(100% - (1em + ${theme.spacing(5)}))`,
+  width: `calc(100% - (1em + ${theme.spacing(7)}))`,
   marginLeft: `calc(1em + ${theme.spacing(5)})`,
 
   "& .MuiInputBase-input": {
