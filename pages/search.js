@@ -1,11 +1,15 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import * as search from "../redux/search/searchSlice";
 
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
+import Grid from "@mui/material/Grid";
+
+import ProductCard from "../comps/ProductCard";
 
 const SearchUI = styled("div")(({ theme }) => ({
   position: "relative",
@@ -21,7 +25,7 @@ const SearchUI = styled("div")(({ theme }) => ({
     marginLeft: theme.spacing(3),
     width: "auto",
   },
-  marginTop: theme.spacing(5),
+  margin: theme.spacing(5, 0),
 }));
 
 const SearchIconWrapper = styled(IconButton)(({ theme }) => ({
@@ -36,7 +40,7 @@ const SearchIconWrapper = styled(IconButton)(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
-  width: "100%",
+  width: `calc(100% - (1em + ${theme.spacing(5)}))`,
   marginLeft: `calc(1em + ${theme.spacing(5)})`,
 
   "& .MuiInputBase-input": {
@@ -53,8 +57,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Search = () => {
   const [value, setValue] = React.useState("");
+  const data = useSelector((state) => state.search.data);
+  const dispatch = useDispatch();
+
   const handleSubmit = () => {
-    console.log(value);
+    const fetchData = async () => {
+      await dispatch(search.getData({ query: value, page: 1 }));
+    };
+
+    fetchData();
   };
 
   return (
@@ -74,7 +85,17 @@ const Search = () => {
           }}
         />
       </SearchUI>
-      <Box sx={{ flexGrow: 1 }} />
+      <Box sx={{ flexGrow: 1, mt: { md: 5, xs: 0 } }}>
+        <Grid container spacing={2}>
+          {data.length > 0
+            ? data.map((dataItem, key) => (
+                <Grid item xs={12} md={4} key={key}>
+                  <ProductCard data={dataItem} />
+                </Grid>
+              ))
+            : null}
+        </Grid>
+      </Box>
     </div>
   );
 };
