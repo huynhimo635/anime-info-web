@@ -8,6 +8,8 @@ import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 
 import ProductCard from "../comps/ProductCard";
 
@@ -57,15 +59,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Search = () => {
   const [value, setValue] = React.useState("");
+  const [open, setOpen] = React.useState(false);
   const data = useSelector((state) => state.search.data);
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
+    if (value === "") return setOpen(true);
+
     const fetchData = async () => {
       await dispatch(search.getData({ query: value, page: 1 }));
     };
 
     fetchData();
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   return (
@@ -76,6 +89,7 @@ const Search = () => {
         </SearchIconWrapper>
         <StyledInputBase
           placeholder="Search here…"
+          autoFocus
           inputProps={{ "aria-label": "search" }}
           onChange={(e) => setValue(e.target.value)}
           onKeyPress={(e) => {
@@ -85,17 +99,22 @@ const Search = () => {
           }}
         />
       </SearchUI>
-      <Box sx={{ flexGrow: 1, mt: { md: 5, xs: 0 } }}>
-        <Grid container spacing={2}>
-          {data.length > 0
-            ? data.map((dataItem, key) => (
-                <Grid item xs={12} md={4} key={key}>
-                  <ProductCard data={dataItem} />
-                </Grid>
-              ))
-            : null}
-        </Grid>
-      </Box>
+      {data.length > 0 ? (
+        <Box sx={{ flexGrow: 1, mt: { md: 5, xs: 0 } }}>
+          <Grid container spacing={2}>
+            {data.map((dataItem, key) => (
+              <Grid item xs={12} md={4} key={key}>
+                <ProductCard data={dataItem} />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      ) : null}
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          Please enter the anime name you are looking for in the search field!!!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

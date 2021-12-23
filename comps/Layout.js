@@ -3,8 +3,7 @@ import Header from "./Header";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-
-import styles from "../styles/Layout.module.css";
+import Loading from "./Loading";
 
 const darkTheme = createTheme({
   palette: {
@@ -24,6 +23,7 @@ const Layout = ({ children }) => {
 
         <Header />
         <Toolbar id="back-to-top-anchor" />
+        <Loading />
 
         <Container maxWidth="xl">{children}</Container>
       </div>
