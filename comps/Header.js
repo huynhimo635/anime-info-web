@@ -84,8 +84,11 @@ const Header = (props) => {
 
   return (
     <header className={styles.header}>
-      <AppBar position="fixed" sx={{ backgroundColor: "rgba(0, 0, 0, 0.95)" }}>
-        <Container maxWidth="xxl">
+      <AppBar position="fixed">
+        <Container
+          maxWidth="xxl"
+          sx={{ backgroundColor: "rgba(0, 0, 0, 0.95)" }}
+        >
           <Toolbar disableGutters>
             <Typography
               variant="h3"

@@ -63,7 +63,7 @@ const ProductCard = (props) => {
             component="div"
             sx={{ textTransform: "capitalize" }}
           >
-            {nameProducers.length > 0 ? nameProducers.join("  &  ") : "----"}
+            {nameProducers.length > 0 ? nameProducers.join("  &  ") : "N/A"}
           </Typography>
           <Typography
             variant="subtitle1"

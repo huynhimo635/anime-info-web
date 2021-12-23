@@ -1,6 +1,6 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import * as season from "../redux/seasonal/seasonSlice";
 import * as seasonArchive from "../redux/seasonal/seasonArchiveSlice";
 
@@ -93,7 +93,7 @@ export default function Home() {
   return (
     <div className="season">
       <div className="menu">
-        <Box sx={{ flexGrow: 1, mt: 5 }}>
+        <Box sx={{ flexGrow: 1, mt: { md: 5, xs: 0 } }}>
           <Toolbar
             disableGutters
             sx={{ flexDirection: { xs: "column", md: "row" } }}
@@ -170,8 +170,8 @@ export default function Home() {
                   <MenuItem disabled value="">
                     <em>Sort by</em>
                   </MenuItem>
-                  <MenuItem value="ASC">Ascending</MenuItem>
-                  <MenuItem value="DESC">Descending</MenuItem>
+                  <MenuItem value="ASC">Title - Ascending</MenuItem>
+                  <MenuItem value="DESC">Title - Descending</MenuItem>
                 </Select>
               </FormControl>
             </Box>
