@@ -64,14 +64,19 @@ const Search = () => {
   const [value, setValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const data = useSelector((state) => state.search.data);
-  const loadingInner = useSelector((state) => state.search.loading);
+  const listRef = React.useRef(null);
+  const [loadingInner, setLoadingInner] = React.useState(false);
+  const [dataShow, setDataShow] = React.useState(data);
+  const [page, setPage] = React.useState(1);
 
   const handleSubmit = () => {
-    if (value === "") return setOpen(true);
+    if (value === "" || value.length < 3) return setOpen(true);
 
     const fetchData = async () => {
       dispatch(loading.set());
-      await dispatch(search.getData({ query: value, page: 1 }));
+      setDataShow([]);
+      setPage(1);
+      await dispatch(search.getData({ query: value, page: page }));
       dispatch(loading.remove());
     };
 
@@ -86,12 +91,46 @@ const Search = () => {
     setOpen(false);
   };
 
+  React.useEffect(() => {
+    setDataShow(dataShow.concat(data));
+
+    console.log(dataShow.length);
+  }, [data]);
+
+  React.useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (listRef && listRef.current) {
+        if (
+          data.length === 50 &&
+          window.scrollY + window.innerHeight + 1 >=
+            listRef.current.clientHeight + listRef.current.offsetTop
+        ) {
+          setLoadingInner(true);
+        }
+      }
+    });
+  }, [listRef, data]);
+
+  React.useEffect(() => {
+    const loadMore = async () => {
+      if (loadingInner) {
+        await dispatch(search.getData({ query: value, page: page + 1 }));
+        setPage(page + 1);
+      }
+    };
+
+    setTimeout(() => {
+      loadMore();
+      setLoadingInner(false);
+    }, 1000);
+  }, [loadingInner]);
+
   return (
     <div className="search-page">
       {/* show error */}
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          Please enter the anime name you are looking for in the search field!!!
+          Requires at least 3 or more characters
         </Alert>
       </Snackbar>
       {/* search */}
@@ -112,10 +151,10 @@ const Search = () => {
         />
       </SearchUI>
       {/* rendering data */}
-      {data.length > 0 ? (
-        <Box sx={{ flexGrow: 1, mt: { md: 5, xs: 0 } }}>
+      {dataShow.length > 0 ? (
+        <Box sx={{ flexGrow: 1, mt: { md: 5, xs: 0 } }} ref={listRef}>
           <Grid container spacing={2}>
-            {data.map((dataItem, key) => (
+            {dataShow.map((dataItem, key) => (
               <Grid item xs={12} md={4} key={key}>
                 <ProductCard data={dataItem} />
               </Grid>
@@ -124,17 +163,19 @@ const Search = () => {
         </Box>
       ) : null}
       {/* infinite loading */}
-      {loading && data.length > 0 && (
+      {loadingInner ? (
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            mt: 2,
+            mb: 2,
           }}
         >
-          <CircularProgress color="inherit" />
+          <CircularProgress color="inherit" size={50} />
         </Box>
-      )}
+      ) : null}
     </div>
   );
 };
