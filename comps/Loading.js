@@ -6,14 +6,14 @@ import { useSelector } from "react-redux";
 export default function SimpleBackdrop() {
   const [open, setOpen] = React.useState(false);
 
-  const search = useSelector((state) => state.search.loading);
   const season = useSelector((state) => state.season.loading);
   const seasonArchive = useSelector((state) => state.seasonArchive.loading);
+  const loading = useSelector((state) => state.loading.loadingCustom);
 
   React.useEffect(() => {
-    if (search || season || seasonArchive) setOpen(true);
+    if (loading || season || seasonArchive) setOpen(true);
     else setOpen(false);
-  }, [search, season, seasonArchive]);
+  }, [loading, season, seasonArchive]);
 
   return (
     <div>

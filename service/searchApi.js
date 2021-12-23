@@ -2,8 +2,12 @@ import axiosClient from "./axiosClient";
 
 const searchApi = {
   get: (query, page) => {
-    const subUrl = `/search/anime?q=${query}&page=${page}`;
-    return axiosClient.get(subUrl);
+    const subUrl = "/search/anime";
+    const config = {
+      params: { q: query, page },
+    };
+
+    return axiosClient.get(subUrl, config);
   },
 };
 

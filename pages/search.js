@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as search from "../redux/search/searchSlice";
+import * as loading from "../redux/loadingCustom/loadingSlice";
 
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
@@ -10,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import ProductCard from "../comps/ProductCard";
 
@@ -58,16 +60,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Search = () => {
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const data = useSelector((state) => state.search.data);
-  const dispatch = useDispatch();
+  const loadingInner = useSelector((state) => state.search.loading);
 
   const handleSubmit = () => {
     if (value === "") return setOpen(true);
 
     const fetchData = async () => {
+      dispatch(loading.set());
       await dispatch(search.getData({ query: value, page: 1 }));
+      dispatch(loading.remove());
     };
 
     fetchData();
@@ -83,6 +88,13 @@ const Search = () => {
 
   return (
     <div className="search-page">
+      {/* show error */}
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          Please enter the anime name you are looking for in the search field!!!
+        </Alert>
+      </Snackbar>
+      {/* search */}
       <SearchUI>
         <SearchIconWrapper onClick={() => handleSubmit()}>
           <SearchIcon />
@@ -99,6 +111,7 @@ const Search = () => {
           }}
         />
       </SearchUI>
+      {/* rendering data */}
       {data.length > 0 ? (
         <Box sx={{ flexGrow: 1, mt: { md: 5, xs: 0 } }}>
           <Grid container spacing={2}>
@@ -110,11 +123,18 @@ const Search = () => {
           </Grid>
         </Box>
       ) : null}
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          Please enter the anime name you are looking for in the search field!!!
-        </Alert>
-      </Snackbar>
+      {/* infinite loading */}
+      {loading && data.length > 0 && (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress color="inherit" />
+        </Box>
+      )}
     </div>
   );
 };
