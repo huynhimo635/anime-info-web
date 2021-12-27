@@ -157,11 +157,13 @@ const Header = (props) => {
           </Toolbar>
         </Container>
       </AppBar>
-      <ScrollTop {...props}>
-        <Fab color="main" size="large">
-          <KeyboardArrowUpIcon />
-        </Fab>
-      </ScrollTop>
+      <Box>
+        <ScrollTop {...props}>
+          <Fab color="main" size="large">
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </ScrollTop>
+      </Box>
     </header>
   );
 };
