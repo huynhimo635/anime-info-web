@@ -11,6 +11,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 import { getData } from "../redux/anime/animeSlice";
+import { typography } from "@mui/system";
 
 // code MUI
 function TabPanel(props) {
@@ -222,7 +223,165 @@ const DetailAnime = () => {
               </Tabs>
               {/* Info */}
               <TabPanel value={value} index={0}>
-                0
+                <Box sx={{ border: "1px white solid", p: 4 }}>
+                  <Box
+                    sx={{
+                      borderBottom: "1px white solid",
+                      p: { md: 3, xs: 0 },
+                    }}
+                  >
+                    {/* Summary Info */}
+                    <Grid container spacing={2}>
+                      {/* Format */}
+                      <Grid item xs={3}>
+                        <Typography
+                          variant="p"
+                          component="div"
+                          noWrap
+                          sx={{
+                            flexGrow: 1,
+                            textTransform: "capitalize",
+                          }}
+                          align="left"
+                          color="textSecondary"
+                          mt={1}
+                        >
+                          <Typography variant="span" color="textPrimary">
+                            Format:{" "}
+                          </Typography>
+                          {animeData.type || "N/A"}
+                        </Typography>
+                      </Grid>
+                      {/* Source */}
+                      <Grid item xs={3}>
+                        <Typography
+                          variant="p"
+                          component="div"
+                          noWrap
+                          sx={{
+                            flexGrow: 1,
+
+                            textTransform: "capitalize",
+                          }}
+                          align="left"
+                          color="textSecondary"
+                          mt={1}
+                        >
+                          <Typography variant="span" color="textPrimary">
+                            Source:{" "}
+                          </Typography>
+                          {animeData.source || "N/A"}
+                        </Typography>
+                      </Grid>
+                      {/* Episodes */}
+                      <Grid item xs={3}>
+                        <Typography
+                          variant="p"
+                          component="div"
+                          noWrap
+                          sx={{
+                            flexGrow: 1,
+
+                            textTransform: "capitalize",
+                          }}
+                          align="left"
+                          color="textSecondary"
+                          mt={1}
+                        >
+                          <Typography variant="span" color="textPrimary">
+                            Episodes:{" "}
+                          </Typography>
+                          {animeData.episodes || "--"}
+                        </Typography>
+                      </Grid>
+                      {/* runtime */}
+                      <Grid item xs={3}>
+                        <Typography
+                          variant="p"
+                          component="div"
+                          noWrap
+                          sx={{
+                            flexGrow: 1,
+                          }}
+                          align="left"
+                          color="textSecondary"
+                          mt={1}
+                        >
+                          <Typography variant="span" color="textPrimary">
+                            Runtime:{" "}
+                          </Typography>
+                          {animeData.duration || "--"}
+                        </Typography>
+                      </Grid>
+                      {/* Studio */}
+                      <Grid item xs={6}>
+                        <Typography
+                          variant="p"
+                          component="div"
+                          noWrap
+                          sx={{
+                            flexGrow: 1,
+                            textTransform: "capitalize",
+                          }}
+                          align="left"
+                          color="textSecondary"
+                          mt={1}
+                        >
+                          <Typography variant="span" color="textPrimary">
+                            Studio:{" "}
+                          </Typography>
+                          {/* {animeData.studio.length > 0 ? animeData.studio } */}
+                          {animeData.studios.length > 0
+                            ? [...animeData.studios]
+                                .map((item) => item.name)
+                                .join(", ")
+                            : "N/A"}
+                        </Typography>
+                      </Grid>
+                      {/* tag */}
+                      <Grid item xs={6}>
+                        <Typography
+                          variant="p"
+                          component="div"
+                          noWrap
+                          sx={{
+                            flexGrow: 1,
+                            textTransform: "capitalize",
+                          }}
+                          align="left"
+                          color="textSecondary"
+                          mt={1}
+                        >
+                          <Typography variant="span" color="textPrimary">
+                            Tag:{" "}
+                          </Typography>
+                          {animeData.genres.length > 0
+                            ? [...animeData.genres]
+                                .map((item) => item.name)
+                                .join(", ")
+                            : "N/A"}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Box>
+
+                  {/* Description Info */}
+                  <Box sx={{ p: { md: 3, xs: 1 } }}>
+                    <Typography
+                      variant="body1"
+                      component="div"
+                      sx={{
+                        flexGrow: 1,
+                        textTransform: "capitalize",
+                      }}
+                      align="left"
+                      color="textSecondary"
+                      mt={1}
+                    >
+                      {animeData.synopsis || "N/A"}
+                    </Typography>
+                  </Box>
+                </Box>
               </TabPanel>
               {/* Episode list */}
               <TabPanel value={value} index={1}>
