@@ -49,7 +49,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
   "& .MuiInputBase-input": {
     padding: theme.spacing(2, 2, 2, 0),
-    // vertical padding + font size from searchIcon
 
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -60,14 +59,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Search = () => {
-  const dispatch = useDispatch();
-  const [value, setValue] = React.useState("");
-  const [open, setOpen] = React.useState(false);
-  const data = useSelector((state) => state.search.data);
   const listRef = React.useRef(null);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.search.data);
+  const [value, setValue] = React.useState("");
+  const [tempValue, setTempValue] = React.useState("");
+  const [open, setOpen] = React.useState(false); // error input
   const [loadingInner, setLoadingInner] = React.useState(false);
   const [dataShow, setDataShow] = React.useState(data);
   const [page, setPage] = React.useState(1);
+
+  // Submit handling
 
   const handleSubmit = () => {
     if (value === "" || value.length < 3) return setOpen(true);
@@ -76,7 +78,8 @@ const Search = () => {
       dispatch(loading.set());
       setDataShow([]);
       setPage(1);
-      await dispatch(search.getData({ query: value, page: page }));
+      setTempValue(value);
+      await dispatch(search.getData({ query: value, page: 1 }));
       dispatch(loading.remove());
     };
 
@@ -91,14 +94,10 @@ const Search = () => {
     setOpen(false);
   };
 
-  React.useEffect(() => {
-    setDataShow(dataShow.concat(data));
-
-    console.log(dataShow.length);
-  }, [data]);
+  // Infinite load handling
 
   React.useEffect(() => {
-    window.addEventListener("scroll", () => {
+    const handleLoadMore = () => {
       if (listRef && listRef.current) {
         if (
           data.length === 50 &&
@@ -106,24 +105,39 @@ const Search = () => {
             listRef.current.clientHeight + listRef.current.offsetTop
         ) {
           setLoadingInner(true);
+          setPage(page + 1);
         }
       }
-    });
+    };
+
+    window.addEventListener("scroll", handleLoadMore);
+    return () => {
+      window.removeEventListener("scroll", handleLoadMore);
+    };
   }, [listRef, data]);
+
+  // load more data handling
 
   React.useEffect(() => {
     const loadMore = async () => {
       if (loadingInner) {
-        await dispatch(search.getData({ query: value, page: page + 1 }));
-        setPage(page + 1);
+        await dispatch(search.getData({ query: tempValue, page: page }));
       }
     };
 
     setTimeout(() => {
-      loadMore();
-      setLoadingInner(false);
+      if (page !== 1) {
+        loadMore();
+        setLoadingInner(false);
+      }
     }, 1000);
-  }, [loadingInner]);
+  }, [page]);
+
+  //set dataShow
+
+  React.useEffect(() => {
+    setDataShow(dataShow.concat(data));
+  }, [data]);
 
   return (
     <div className="search-page">
