@@ -62,11 +62,11 @@ const Search = () => {
   const listRef = React.useRef(null);
   const dispatch = useDispatch();
   const data = useSelector((state) => state.search.data);
+  const [dataShow, setDataShow] = React.useState(data);
   const [value, setValue] = React.useState("");
   const [tempValue, setTempValue] = React.useState("");
   const [open, setOpen] = React.useState(false); // error input
   const [loadingInner, setLoadingInner] = React.useState(false);
-  const [dataShow, setDataShow] = React.useState(data);
   const [page, setPage] = React.useState(1);
 
   // Submit handling
@@ -147,7 +147,7 @@ const Search = () => {
           Requires at least 3 or more characters
         </Alert>
       </Snackbar>
-      {/* search */}
+      {/* search input */}
       <SearchUI>
         <SearchIconWrapper onClick={() => handleSubmit()}>
           <SearchIcon />
