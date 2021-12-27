@@ -15,7 +15,7 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import { styled } from "@mui/material/styles";
 
-import { getData } from "../redux/anime/animeSlice";
+import { getData, getThemes } from "../redux/anime/animeSlice";
 
 // code MUI
 function TabPanel(props) {
@@ -109,6 +109,7 @@ const DetailAnime = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       await dispatch(getData(id));
+      await dispatch(getThemes(id));
     };
 
     if (id !== undefined) fetchData();
