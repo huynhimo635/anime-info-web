@@ -12,8 +12,11 @@ import Grid from "@mui/material/Grid";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import CircularProgress from "@mui/material/CircularProgress";
+import Container from "@mui/material/Container";
 
 import ProductCard from "../comps/ProductCard";
+
+// code MUI
 
 const SearchUI = styled("div")(({ theme }) => ({
   position: "relative",
@@ -26,7 +29,6 @@ const SearchUI = styled("div")(({ theme }) => ({
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
     width: "auto",
   },
   margin: theme.spacing(5, 0),
@@ -58,6 +60,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+// end code MUI
+
 const Search = () => {
   const listRef = React.useRef(null);
   const dispatch = useDispatch();
@@ -85,6 +89,8 @@ const Search = () => {
 
     fetchData();
   };
+
+  // code MUI
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -164,32 +170,34 @@ const Search = () => {
           }}
         />
       </SearchUI>
-      {/* rendering data */}
-      {dataShow.length > 0 ? (
-        <Box sx={{ flexGrow: 1, mt: { md: 5, xs: 0 } }} ref={listRef}>
-          <Grid container spacing={2}>
-            {dataShow.map((dataItem, key) => (
-              <Grid item xs={12} md={4} key={key}>
-                <ProductCard data={dataItem} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      ) : null}
-      {/* infinite loading */}
-      {loadingInner ? (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            mt: 2,
-            mb: 2,
-          }}
-        >
-          <CircularProgress color="inherit" size={50} />
-        </Box>
-      ) : null}
+      <Container maxWidth="xxl">
+        {/* rendering data */}
+        {dataShow.length > 0 ? (
+          <Box sx={{ flexGrow: 1, mt: { md: 5, xs: 0 } }} ref={listRef}>
+            <Grid container spacing={2}>
+              {dataShow.map((dataItem, key) => (
+                <Grid item xs={12} md={4} key={key}>
+                  <ProductCard data={dataItem} />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        ) : null}
+        {/* infinite loading */}
+        {loadingInner ? (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              mt: 2,
+              mb: 2,
+            }}
+          >
+            <CircularProgress color="inherit" size={50} />
+          </Box>
+        ) : null}
+      </Container>
     </div>
   );
 };

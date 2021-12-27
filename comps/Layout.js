@@ -22,8 +22,8 @@ const Layout = ({ children }) => {
         </Head>
 
         <Header />
-        <Toolbar id="back-to-top-anchor" />
         <Loading />
+        <Toolbar id="back-to-top-anchor" />
 
         <Container maxWidth="xl">{children}</Container>
       </div>

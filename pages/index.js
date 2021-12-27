@@ -19,6 +19,7 @@ import Grid from "@mui/material/Grid";
 
 import ProductCard from "../comps/ProductCard";
 
+// code MUI
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -47,6 +48,8 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
+
+// end code MUI
 
 export default function Home() {
   const dispatch = useDispatch();

@@ -9,7 +9,7 @@ export const getData = createAsyncThunk("anime", async (id) => {
 const animeSlice = createSlice({
   name: "anime",
   initialState: {
-    data: [],
+    data: {},
     loading: false,
     error: false,
   },

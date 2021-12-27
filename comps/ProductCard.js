@@ -32,9 +32,10 @@ const ProductCard = (props) => {
             height: { md: "250px", xs: "100%" },
             overflow: "hidden",
             "&:hover": {
-              transform: "scale(1.2)",
+              transform: "scale(1.15)",
               transition: "transform 0.3s ease 0s",
             },
+            transition: "transform 0.3s ease 0s",
           }}
         >
           <CardMedia

@@ -19,6 +19,8 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 
 import styles from "../styles/Header.module.css";
 
+//code MUI
+
 const pages = [
   {
     name: "Seasonal Anime",
@@ -70,6 +72,8 @@ ScrollTop.propTypes = {
 
   window: PropTypes.func,
 };
+
+//end code MUI
 
 const Header = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
