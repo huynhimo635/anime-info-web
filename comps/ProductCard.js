@@ -1,4 +1,6 @@
 import * as React from "react";
+import Link from "next/link";
+
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -21,70 +23,78 @@ const ProductCard = (props) => {
     : [];
 
   return (
-    <Card
-      sx={{
-        display: "flex",
-        flexDirection: { md: "row", xs: "column" },
-        height: { md: "250px", xs: "100%" },
-        overflow: "hidden",
-      }}
-    >
-      <CardMedia
-        component="img"
-        sx={{
-          width: { md: 151, xs: "auto" },
-        }}
-        src={data.image_url}
-        alt="Live from space album cover"
-      />
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <CardContent
+    <Link href={`/${data.mal_id}`}>
+      <a>
+        <Card
           sx={{
-            flex: "1 0 auto",
+            display: "flex",
+            flexDirection: { md: "row", xs: "column" },
+            height: { md: "250px", xs: "100%" },
             overflow: "hidden",
-            height: "200px",
-            textOverflow: "ellipsis",
-            marginBottom: "16px",
             "&:hover": {
-              overflow: "auto",
-            },
-            "&::-webkit-scrollbar": {
-              display: "none",
+              transform: "scale(1.2)",
+              transition: "transform 0.3s ease 0s",
             },
           }}
-          component="div"
         >
-          <Typography component="div" variant="h5">
-            {data.title}
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            color="text.secondary"
-            component="div"
-            sx={{ textTransform: "capitalize" }}
-          >
-            {nameProducers.length > 0 ? nameProducers.join("  &  ") : "N/A"}
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            color="text.secondary"
-            component="div"
-          >
-            {data.episodes ? data.episodes : "--"} episodes
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            component="div"
+          <CardMedia
+            component="img"
             sx={{
-              display: "flex",
+              width: { md: 151, xs: "auto" },
             }}
-          >
-            {data.synopsis}
-          </Typography>
-        </CardContent>
-      </Box>
-    </Card>
+            src={data.image_url}
+            alt="Live from space album cover"
+          />
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <CardContent
+              sx={{
+                flex: "1 0 auto",
+                overflow: "hidden",
+                height: "200px",
+                textOverflow: "ellipsis",
+                marginBottom: "16px",
+                "&:hover": {
+                  overflow: "auto",
+                },
+                "&::-webkit-scrollbar": {
+                  display: "none",
+                },
+              }}
+              component="div"
+            >
+              <Typography component="div" variant="h5">
+                {data.title}
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                component="div"
+                sx={{ textTransform: "capitalize" }}
+              >
+                {nameProducers.length > 0 ? nameProducers.join("  &  ") : "N/A"}
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                component="div"
+              >
+                {data.episodes ? data.episodes : "--"} episodes
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                component="div"
+                sx={{
+                  display: "flex",
+                }}
+              >
+                {data.synopsis}
+              </Typography>
+            </CardContent>
+          </Box>
+        </Card>
+      </a>
+    </Link>
   );
 };
 
