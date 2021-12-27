@@ -1,19 +1,60 @@
 import * as React from "react";
+import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
+
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
 import Grid from "@mui/material/Grid";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 import { getData } from "../redux/anime/animeSlice";
+
+// code MUI
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+// end code MUI
 
 const DetailAnime = () => {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
   const animeData = useSelector((state) => state.anime.data);
+
+  // code MUI
+  const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +69,7 @@ const DetailAnime = () => {
       <Grid container spacing={{ md: 5, sx: 2 }} sx={{ mt: { md: 5, xs: 2 } }}>
         <Grid item xs={12} md={4}>
           <div className="anime-details__info">
-            <Box>
+            <Box sx={{ mb: { sx: 5, md: 10 } }}>
               {
                 <Image
                   src={animeData.image_url}
@@ -38,6 +79,7 @@ const DetailAnime = () => {
                   layout="responsive"
                 />
               }
+
               <Typography
                 variant="h5"
                 component="div"
@@ -45,6 +87,7 @@ const DetailAnime = () => {
                 sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
                 align="center"
                 color="textSecondary"
+                mt={2}
               >
                 Rating
               </Typography>
@@ -56,15 +99,140 @@ const DetailAnime = () => {
                 sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
                 align="center"
                 color="textPrimary"
+                mt={2}
               >
                 {animeData.score || "--"} / 10
+              </Typography>
+
+              <Typography
+                variant="h5"
+                component="div"
+                noWrap
+                sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                align="center"
+                color="textSecondary"
+                mt={2}
+              >
+                {animeData.scored_by || "--"} ratings
+              </Typography>
+
+              <Typography
+                variant="h5"
+                component="div"
+                noWrap
+                sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                align="center"
+                color="textSecondary"
+                mt={4}
+              >
+                Official Website
+              </Typography>
+
+              <Typography
+                variant="h5"
+                component="div"
+                noWrap
+                sx={{ flexGrow: 1, mr: 2 }}
+                align="center"
+                color="textPrimary"
+                mt={2}
+              >
+                {animeData.external_links
+                  ? animeData.external_links
+                      .filter(
+                        (item) => item.name.toLowerCase() === "official site"
+                      )
+                      .map((item, key) => (
+                        <a
+                          key={key}
+                          href={item.url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {item.url}
+                        </a>
+                      ))
+                  : "N/A"}
               </Typography>
             </Box>
           </div>
         </Grid>
         <Grid item xs={12} md={8}>
           <div className="anime-details__content">
-            <h1>Content</h1>
+            <Typography
+              variant="h4"
+              component="div"
+              noWrap
+              sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+              align="left"
+              color="textPrimary"
+              mt={2}
+            >
+              {animeData.title || "N/A"} (Romaji)
+            </Typography>
+
+            {animeData.title_english ? (
+              <Typography
+                variant="h4"
+                component="div"
+                noWrap
+                sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                align="left"
+                color="textPrimary"
+                mt={2}
+              >
+                {animeData.title_english || "N/A"} (English)
+              </Typography>
+            ) : null}
+
+            {animeData.title_japanese ? (
+              <Typography
+                variant="h4"
+                component="div"
+                noWrap
+                sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                align="left"
+                color="textPrimary"
+                mt={2}
+              >
+                {animeData.title_japanese || "N/A"} (japanese)
+              </Typography>
+            ) : null}
+
+            <Box
+              sx={{
+                width: "100%",
+                borderBottom: 1,
+                borderColor: "black",
+              }}
+            >
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                textColor="white"
+                indicatorColor="secondary"
+                variant="scrollable"
+                scrollButtons="auto"
+                allowScrollButtonsMobile
+                aria-label="scrollable auto tabs example"
+              >
+                <Tab label="Info" {...a11yProps(0)} />
+                <Tab label="Episode list" {...a11yProps(1)} />
+                <Tab label="OP & ED" {...a11yProps(2)} />
+              </Tabs>
+              {/* Info */}
+              <TabPanel value={value} index={0}>
+                0
+              </TabPanel>
+              {/* Episode list */}
+              <TabPanel value={value} index={1}>
+                1
+              </TabPanel>
+              {/* OP & ED */}
+              <TabPanel value={value} index={2}>
+                2
+              </TabPanel>
+            </Box>
           </div>
         </Grid>
       </Grid>
