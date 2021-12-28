@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
+import ReactPlayer from "react-player";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -507,7 +508,7 @@ const DetailAnime = () => {
               </TabPanel>
               {/* OP & ED */}
               <TabPanel value={value} index={2}>
-                <Box sx={{ height: "70vh", overflowY: "scroll" }}>
+                <Box sx={{ height: "70vh", overflowY: "auto" }}>
                   {themes.length > 0
                     ? themes.map((item, index) => {
                         // const URL = window.URL || window.webkitURL;
@@ -530,12 +531,17 @@ const DetailAnime = () => {
                               </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
-                              <CardMedia
+                              {/* <CardMedia
                                 component="video"
                                 height="500"
                                 // src={item.mirror.mirrorURL}
                                 src="https://res.cloudinary.com/dkpfs6ith/video/upload/v1640666652/ShingekiNoKyojin-OP1_hyxuix.webm"
                                 alt="movie"
+                                controls
+                              /> */}
+
+                              <ReactPlayer
+                                url="https://res.cloudinary.com/dkpfs6ith/video/upload/v1640666652/ShingekiNoKyojin-OP1_hyxuix.webm"
                                 controls
                               />
 
