@@ -15,9 +15,9 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import { styled } from "@mui/material/styles";
-import CardMedia from "@mui/material/CardMedia";
 
 import { getData, getThemes } from "../redux/anime/animeSlice";
+import * as episodesData from "../redux/episodes/episodesSlice";
 
 // code MUI
 function TabPanel(props) {
@@ -91,6 +91,7 @@ const DetailAnime = () => {
   const dispatch = useDispatch();
   const animeData = useSelector((state) => state.anime.data);
   const themes = useSelector((state) => state.anime.themes);
+  const episodes = useSelector((state) => state.episodes);
 
   // code MUI
   const [value, setValue] = React.useState(0);
@@ -113,6 +114,7 @@ const DetailAnime = () => {
     const fetchData = async () => {
       await dispatch(getData(id));
       await dispatch(getThemes(id));
+      await dispatch(episodesData.getData({ id, page: 1 }));
     };
 
     if (id !== undefined) fetchData();
@@ -509,10 +511,50 @@ const DetailAnime = () => {
               {/* OP & ED */}
               <TabPanel value={value} index={2}>
                 <Box sx={{ height: "70vh", overflowY: "auto" }}>
-                  <ReactPlayer
-                    url="https://animethemes.moe/video/Bakemonogatari-OP1.webm"
-                    controls
-                  />
+                  {themes.length > 0
+                    ? themes.map((item, index) => {
+                        // const URL = window.URL || window.webkitURL;
+                        // const file = item.mirror.mirrorURL || "";
+                        // let urlBlob;
+                        // if (file !== "") urlBlob = URL.createObjectURL(file);
+
+                        return (
+                          <Accordion
+                            expanded={expanded2 === `panel${index + 1}`}
+                            onChange={handleChangeAccor2(`panel${index + 1}`)}
+                            key={index}
+                          >
+                            <AccordionSummary
+                              aria-controls="panel1d-content"
+                              id="panel1d-header"
+                            >
+                              <Typography>
+                                #{item.themeType}: {item.themeName}
+                              </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                              {/* <CardMedia
+                                component="video"
+                                height="500"
+                                // src={item.mirror.mirrorURL}
+                                src="https://res.cloudinary.com/dkpfs6ith/video/upload/v1640666652/ShingekiNoKyojin-OP1_hyxuix.webm"
+                                alt="movie"
+                                controls
+                              /> */}
+
+                              <ReactPlayer
+                                url="animethemes.moe/video/Bakemonogatari-OP1.webm"
+                                controls
+                                width="100%"
+                                height="100%"
+                              />
+
+                              {/* <video src={require(item.mirror.mirrorURL)} /> */}
+                            </AccordionDetails>
+                          </Accordion>
+                        );
+                      })
+                    : null}
                 </Box>
               </TabPanel>
             </Box>

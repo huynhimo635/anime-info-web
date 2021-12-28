@@ -7,12 +7,14 @@ import searchReducer from "./search/searchSlice";
 import loadingSlice from "./loadingCustom/loadingSlice";
 
 import animeReducer from "./anime/animeSlice";
+import episodesReducer from "./episodes/episodesSlice";
 
 export const store = configureStore({
   reducer: {
     season: seasonReducer,
     seasonArchive: seasonArchiveReducer,
     anime: animeReducer,
+    episodes: episodesReducer,
 
     search: searchReducer,
     loading: loadingSlice,
