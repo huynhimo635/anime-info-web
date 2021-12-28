@@ -541,7 +541,7 @@ const DetailAnime = () => {
                               /> */}
 
                               <ReactPlayer
-                                url="https://res.cloudinary.com/dkpfs6ith/video/upload/v1640666652/ShingekiNoKyojin-OP1_hyxuix.webm"
+                                url={item.mirror.mirrorURL}
                                 controls
                               />
 
