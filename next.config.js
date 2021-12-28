@@ -4,4 +4,12 @@ module.exports = {
   images: {
     domains: ["cdn.myanimelist.net"],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/:id",
+        destination: "https://themes.moe/api/themes*",
+      },
+    ];
+  },
 };
