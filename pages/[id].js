@@ -509,48 +509,10 @@ const DetailAnime = () => {
               {/* OP & ED */}
               <TabPanel value={value} index={2}>
                 <Box sx={{ height: "70vh", overflowY: "auto" }}>
-                  {themes.length > 0
-                    ? themes.map((item, index) => {
-                        // const URL = window.URL || window.webkitURL;
-                        // const file = item.mirror.mirrorURL || "";
-                        // let urlBlob;
-                        // if (file !== "") urlBlob = URL.createObjectURL(file);
-
-                        return (
-                          <Accordion
-                            expanded={expanded2 === `panel${index + 1}`}
-                            onChange={handleChangeAccor2(`panel${index + 1}`)}
-                            key={index}
-                          >
-                            <AccordionSummary
-                              aria-controls="panel1d-content"
-                              id="panel1d-header"
-                            >
-                              <Typography>
-                                #{item.themeType}: {item.themeName}
-                              </Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                              {/* <CardMedia
-                                component="video"
-                                height="500"
-                                // src={item.mirror.mirrorURL}
-                                src="https://res.cloudinary.com/dkpfs6ith/video/upload/v1640666652/ShingekiNoKyojin-OP1_hyxuix.webm"
-                                alt="movie"
-                                controls
-                              /> */}
-
-                              <ReactPlayer
-                                url="animethemes.moe/video/Bakemonogatari-OP1.webm"
-                                controls
-                              />
-
-                              {/* <video src={require(item.mirror.mirrorURL)} /> */}
-                            </AccordionDetails>
-                          </Accordion>
-                        );
-                      })
-                    : null}
+                  <ReactPlayer
+                    url="animethemes.moe/video/Bakemonogatari-OP1.webm"
+                    controls
+                  />
                 </Box>
               </TabPanel>
             </Box>
