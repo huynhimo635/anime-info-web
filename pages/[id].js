@@ -510,7 +510,7 @@ const DetailAnime = () => {
               <TabPanel value={value} index={2}>
                 <Box sx={{ height: "70vh", overflowY: "auto" }}>
                   <ReactPlayer
-                    url="animethemes.moe/video/Bakemonogatari-OP1.webm"
+                    url="https://animethemes.moe/video/Bakemonogatari-OP1.webm"
                     controls
                   />
                 </Box>
