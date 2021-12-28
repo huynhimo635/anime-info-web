@@ -5,9 +5,6 @@ const themesApi = {
     const subUrl = `/${id}`;
     const config = {
       baseURL: "https://themes.moe/api/themes",
-      headers: {
-        "Access-Control-Allow-Origin": "https://themes.moe/api/themes",
-      },
     };
     return axiosClient.get(subUrl, config);
   },
