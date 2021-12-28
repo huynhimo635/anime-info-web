@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import episodesApi from "../../service/episodesApi";
 
-export const getData = createAsyncThunk("episodes", async ({ id, page }) => {
-  const res = await episodesApi.get(id, page);
-  return res;
-});
+export const getData = createAsyncThunk(
+  "episodes",
+  async ({ id, page = 1 }) => {
+    const res = await episodesApi.get(id, page);
+    return res;
+  }
+);
 
 const episodesSlice = createSlice({
   name: "episodes",

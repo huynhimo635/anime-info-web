@@ -10,14 +10,10 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import MuiAccordion from "@mui/material/Accordion";
-import MuiAccordionSummary from "@mui/material/AccordionSummary";
-import MuiAccordionDetails from "@mui/material/AccordionDetails";
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import { styled } from "@mui/material/styles";
 
 import { getData, getThemes } from "../redux/anime/animeSlice";
-import * as episodesData from "../redux/episodes/episodesSlice";
+
+import Episodes from "../comps/Episodes";
 
 // code MUI
 function TabPanel(props) {
@@ -49,40 +45,6 @@ function a11yProps(index) {
   };
 }
 
-const Accordion = styled((props) => (
-  <MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
-  border: `1px solid ${theme.palette.divider}`,
-  "&:not(:last-child)": {
-    borderBottom: 0,
-  },
-  "&:before": {
-    display: "none",
-  },
-}));
-const AccordionSummary = styled((props) => (
-  <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
-    {...props}
-  />
-))(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === "dark" ? "rgba(0, 0, 0, 0.8)" : "rgba(0, 0, 0, .03)",
-  flexDirection: "row-reverse",
-  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-    transform: "rotate(90deg)",
-  },
-  "& .MuiAccordionSummary-content": {
-    marginLeft: theme.spacing(1),
-  },
-}));
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === "dark" ? "rgba(0, 0, 0, 0.8)" : "rgba(0, 0, 0, .03)",
-  padding: theme.spacing(2),
-  borderTop: "1px solid rgba(255, 255, 255, .125)",
-}));
-
 // end code MUI
 
 const DetailAnime = () => {
@@ -91,7 +53,6 @@ const DetailAnime = () => {
   const dispatch = useDispatch();
   const animeData = useSelector((state) => state.anime.data);
   const themes = useSelector((state) => state.anime.themes);
-  const episodes = useSelector((state) => state.episodes);
 
   // code MUI
   const [value, setValue] = React.useState(0);
@@ -99,22 +60,12 @@ const DetailAnime = () => {
     setValue(newValue);
   };
 
-  const [expanded1, setExpanded1] = React.useState("panel1");
-  const handleChangeAccor1 = (panel) => (event, newExpanded) => {
-    setExpanded1(newExpanded ? panel : false);
-  };
-
-  const [expanded2, setExpanded2] = React.useState("panel1");
-  const handleChangeAccor2 = (panel) => (event, newExpanded) => {
-    setExpanded2(newExpanded ? panel : false);
-  };
   //end code MUI
 
   React.useEffect(() => {
     const fetchData = async () => {
       await dispatch(getData(id));
       await dispatch(getThemes(id));
-      await dispatch(episodesData.getData({ id, page: 1 }));
     };
 
     if (id !== undefined) fetchData();
@@ -445,79 +396,13 @@ const DetailAnime = () => {
               </TabPanel>
               {/* Episode list */}
               <TabPanel value={value} index={1}>
-                <Box>
-                  <Accordion
-                    expanded={expanded1 === "panel1"}
-                    onChange={handleChangeAccor1("panel1")}
-                  >
-                    <AccordionSummary
-                      aria-controls="panel1d-content"
-                      id="panel1d-header"
-                    >
-                      <Typography>Collapsible Group Item #1</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Suspendisse malesuada lacus ex, sit amet blandit leo
-                        lobortis eget. Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Suspendisse malesuada lacus ex, sit
-                        amet blandit leo lobortis eget.
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                  <Accordion
-                    expanded={expanded1 === "panel2"}
-                    onChange={handleChangeAccor1("panel2")}
-                  >
-                    <AccordionSummary
-                      aria-controls="panel2d-content"
-                      id="panel2d-header"
-                    >
-                      <Typography>Collapsible Group Item #2</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Suspendisse malesuada lacus ex, sit amet blandit leo
-                        lobortis eget. Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Suspendisse malesuada lacus ex, sit
-                        amet blandit leo lobortis eget.
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                  <Accordion
-                    expanded={expanded1 === "panel3"}
-                    onChange={handleChangeAccor1("panel3")}
-                  >
-                    <AccordionSummary
-                      aria-controls="panel3d-content"
-                      id="panel3d-header"
-                    >
-                      <Typography>Collapsible Group Item #3</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Suspendisse malesuada lacus ex, sit amet blandit leo
-                        lobortis eget. Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Suspendisse malesuada lacus ex, sit
-                        amet blandit leo lobortis eget.
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                </Box>
+                <Episodes id={id} />
               </TabPanel>
               {/* OP & ED */}
               <TabPanel value={value} index={2}>
-                <Box sx={{ height: "70vh", overflowY: "auto" }}>
+                {/* <Box sx={{ height: "70vh", overflowY: "auto" }}>
                   {themes.length > 0
                     ? themes.map((item, index) => {
-                        // const URL = window.URL || window.webkitURL;
-                        // const file = item.mirror.mirrorURL || "";
-                        // let urlBlob;
-                        // if (file !== "") urlBlob = URL.createObjectURL(file);
-
                         return (
                           <Accordion
                             expanded={expanded2 === `panel${index + 1}`}
@@ -533,14 +418,14 @@ const DetailAnime = () => {
                               </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
-                              {/* <CardMedia
+                              <CardMedia
                                 component="video"
                                 height="500"
                                 // src={item.mirror.mirrorURL}
                                 src="https://res.cloudinary.com/dkpfs6ith/video/upload/v1640666652/ShingekiNoKyojin-OP1_hyxuix.webm"
                                 alt="movie"
                                 controls
-                              /> */}
+                              />
 
                               <ReactPlayer
                                 url="animethemes.moe/video/Bakemonogatari-OP1.webm"
@@ -549,13 +434,13 @@ const DetailAnime = () => {
                                 height="100%"
                               />
 
-                              {/* <video src={require(item.mirror.mirrorURL)} /> */}
+                               <video src={require(item.mirror.mirrorURL)} />
                             </AccordionDetails>
                           </Accordion>
                         );
                       })
                     : null}
-                </Box>
+                </Box> */}
               </TabPanel>
             </Box>
           </div>
