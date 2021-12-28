@@ -14,6 +14,7 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import { styled } from "@mui/material/styles";
+import CardMedia from "@mui/material/CardMedia";
 
 import { getData, getThemes } from "../redux/anime/animeSlice";
 
@@ -88,6 +89,9 @@ const DetailAnime = () => {
   const { id } = router.query;
   const dispatch = useDispatch();
   const animeData = useSelector((state) => state.anime.data);
+  const themes = useSelector((state) => state.anime.themes);
+
+  const videoRef = React.useState(null);
 
   // code MUI
   const [value, setValue] = React.useState(0);
@@ -102,6 +106,7 @@ const DetailAnime = () => {
 
   const [expanded2, setExpanded2] = React.useState("panel1");
   const handleChangeAccor2 = (panel) => (event, newExpanded) => {
+    console.log(videoRef.current);
     setExpanded2(newExpanded ? panel : false);
   };
   //end code MUI
@@ -260,7 +265,7 @@ const DetailAnime = () => {
               <Tabs
                 value={value}
                 onChange={handleChange}
-                textColor="white"
+                textColor="inherit"
                 indicatorColor="secondary"
                 variant="scrollable"
                 scrollButtons="auto"
@@ -506,66 +511,35 @@ const DetailAnime = () => {
               {/* OP & ED */}
               <TabPanel value={value} index={2}>
                 <Box>
-                  <Accordion
-                    expanded={expanded2 === "panel1"}
-                    onChange={handleChangeAccor2("panel1")}
-                  >
-                    <AccordionSummary
-                      aria-controls="panel1d-content"
-                      id="panel1d-header"
-                    >
-                      <Typography>Collapsible Group Item #1</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Suspendisse malesuada lacus ex, sit amet blandit leo
-                        lobortis eget. Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Suspendisse malesuada lacus ex, sit
-                        amet blandit leo lobortis eget.
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                  <Accordion
-                    expanded={expanded2 === "panel2"}
-                    onChange={handleChangeAccor2("panel2")}
-                  >
-                    <AccordionSummary
-                      aria-controls="panel2d-content"
-                      id="panel2d-header"
-                    >
-                      <Typography>Collapsible Group Item #2</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Suspendisse malesuada lacus ex, sit amet blandit leo
-                        lobortis eget. Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Suspendisse malesuada lacus ex, sit
-                        amet blandit leo lobortis eget.
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                  <Accordion
-                    expanded={expanded2 === "panel3"}
-                    onChange={handleChangeAccor2("panel3")}
-                  >
-                    <AccordionSummary
-                      aria-controls="panel3d-content"
-                      id="panel3d-header"
-                    >
-                      <Typography>Collapsible Group Item #3</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Suspendisse malesuada lacus ex, sit amet blandit leo
-                        lobortis eget. Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Suspendisse malesuada lacus ex, sit
-                        amet blandit leo lobortis eget.
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
+                  {themes.length > 0
+                    ? themes.map((item, index) => (
+                        <Accordion
+                          expanded={expanded2 === `panel${index + 1}`}
+                          onChange={handleChangeAccor2(`panel${index + 1}`)}
+                          key={index}
+                        >
+                          <AccordionSummary
+                            aria-controls="panel1d-content"
+                            id="panel1d-header"
+                          >
+                            <Typography>
+                              #{item.themeType}: {item.themeName}
+                            </Typography>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <CardMedia
+                              component="video"
+                              height="500"
+                              src={item.mirror && item.mirror.mirrorURL}
+                              alt="movie"
+                              controls
+                              ref={videoRef}
+                            />
+                            {/* <video src={require(item.mirror.mirrorURL)} /> */}
+                          </AccordionDetails>
+                        </Accordion>
+                      ))
+                    : null}
                 </Box>
               </TabPanel>
             </Box>

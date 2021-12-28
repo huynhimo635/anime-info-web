@@ -163,7 +163,7 @@ export default function Home() {
               <Tabs
                 value={value}
                 onChange={handleChange}
-                textColor="white"
+                textColor="inherit"
                 indicatorColor="secondary"
                 variant="scrollable"
                 scrollButtons="auto"
