@@ -541,7 +541,7 @@ const DetailAnime = () => {
                               /> */}
 
                               <ReactPlayer
-                                url={item.mirror.mirrorURL}
+                                url="animethemes.moe/video/Bakemonogatari-OP1.webm"
                                 controls
                               />
 
