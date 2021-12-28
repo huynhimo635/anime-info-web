@@ -534,7 +534,7 @@ const DetailAnime = () => {
                                 component="video"
                                 height="500"
                                 // src={item.mirror.mirrorURL}
-                                src="https://animethemes.moe/video/Bakemonogatari-OP1.webm"
+                                src="https://res.cloudinary.com/dkpfs6ith/video/upload/v1640666652/ShingekiNoKyojin-OP1_hyxuix.webm"
                                 alt="movie"
                                 controls
                               />
