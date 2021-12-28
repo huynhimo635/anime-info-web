@@ -91,8 +91,6 @@ const DetailAnime = () => {
   const animeData = useSelector((state) => state.anime.data);
   const themes = useSelector((state) => state.anime.themes);
 
-  const videoRef = React.useState(null);
-
   // code MUI
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
@@ -106,7 +104,6 @@ const DetailAnime = () => {
 
   const [expanded2, setExpanded2] = React.useState("panel1");
   const handleChangeAccor2 = (panel) => (event, newExpanded) => {
-    console.log(videoRef.current);
     setExpanded2(newExpanded ? panel : false);
   };
   //end code MUI
@@ -510,35 +507,43 @@ const DetailAnime = () => {
               </TabPanel>
               {/* OP & ED */}
               <TabPanel value={value} index={2}>
-                <Box>
+                <Box sx={{ height: "70vh", overflowY: "scroll" }}>
                   {themes.length > 0
-                    ? themes.map((item, index) => (
-                        <Accordion
-                          expanded={expanded2 === `panel${index + 1}`}
-                          onChange={handleChangeAccor2(`panel${index + 1}`)}
-                          key={index}
-                        >
-                          <AccordionSummary
-                            aria-controls="panel1d-content"
-                            id="panel1d-header"
+                    ? themes.map((item, index) => {
+                        // const URL = window.URL || window.webkitURL;
+                        // const file = item.mirror.mirrorURL || "";
+                        // let urlBlob;
+                        // if (file !== "") urlBlob = URL.createObjectURL(file);
+
+                        return (
+                          <Accordion
+                            expanded={expanded2 === `panel${index + 1}`}
+                            onChange={handleChangeAccor2(`panel${index + 1}`)}
+                            key={index}
                           >
-                            <Typography>
-                              #{item.themeType}: {item.themeName}
-                            </Typography>
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            <CardMedia
-                              component="video"
-                              height="500"
-                              src={item.mirror && item.mirror.mirrorURL}
-                              alt="movie"
-                              controls
-                              ref={videoRef}
-                            />
-                            {/* <video src={require(item.mirror.mirrorURL)} /> */}
-                          </AccordionDetails>
-                        </Accordion>
-                      ))
+                            <AccordionSummary
+                              aria-controls="panel1d-content"
+                              id="panel1d-header"
+                            >
+                              <Typography>
+                                #{item.themeType}: {item.themeName}
+                              </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                              <CardMedia
+                                component="video"
+                                height="500"
+                                // src={item.mirror.mirrorURL}
+                                src="https://animethemes.moe/video/Bakemonogatari-OP1.webm"
+                                alt="movie"
+                                controls
+                              />
+
+                              {/* <video src={require(item.mirror.mirrorURL)} /> */}
+                            </AccordionDetails>
+                          </Accordion>
+                        );
+                      })
                     : null}
                 </Box>
               </TabPanel>
