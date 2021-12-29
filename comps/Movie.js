@@ -88,11 +88,11 @@ const Movie = (props) => {
       {data.length > 0
         ? data.map((itemL) =>
             itemL.animethemeentries.map((itemM) =>
-              itemM.videos.map((item, index) => (
+              itemM.videos.map((item) => (
                 <Accordion
-                  expanded={expanded === `panel${index + 1}`}
-                  onChange={handleChangeAccor(`panel${index + 1}`)}
-                  key={index}
+                  expanded={expanded === `panel${item.id}`}
+                  onChange={handleChangeAccor(`panel${item.id}`)}
+                  key={item.id}
                 >
                   <AccordionSummary
                     aria-controls="panel1d-content"
