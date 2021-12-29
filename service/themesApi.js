@@ -1,11 +1,10 @@
 import axiosClient from "./axiosClient";
 
 const themesApi = {
-  get: (id) => {
-    const subUrl = `/${id}`;
+  get: (title) => {
+    const subUrl = "";
     const config = {
-      baseURL: "https://themes.moe/api/themes",
-      mode: "no-cors",
+      baseURL: `https://staging.animethemes.moe/api/anime/${title}?include=animethemes.animethemeentries.videos`,
     };
     return axiosClient.get(subUrl, config);
   },

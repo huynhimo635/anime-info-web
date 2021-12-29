@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import animeApi from "../../service/animeApi";
+import themesApi from "../../service/themesApi";
 
-export const getData = createAsyncThunk("anime", async (id) => {
-  const res = await animeApi.getById(id);
+export const getData = createAsyncThunk("themes", async (title) => {
+  const res = await themesApi.get(title);
   return res;
 });
 
-const animeSlice = createSlice({
-  name: "anime",
+const themesSlice = createSlice({
+  name: "themes",
   initialState: {
-    data: {},
+    data: [],
     loading: false,
     error: false,
   },
@@ -22,7 +22,7 @@ const animeSlice = createSlice({
     [getData.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.error;
-      state.data = {};
+      state.data = [];
     },
 
     [getData.fulfilled]: (state, action) => {
@@ -32,5 +32,5 @@ const animeSlice = createSlice({
   },
 });
 
-const { reducer: animeReducer } = animeSlice;
-export default animeReducer;
+const { reducer: themesReducer } = themesSlice;
+export default themesReducer;

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import ReactPlayer from "react-player";
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -11,9 +10,10 @@ import Grid from "@mui/material/Grid";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
-import { getData, getThemes } from "../redux/anime/animeSlice";
+import { getData } from "../redux/anime/animeSlice";
 
 import Episodes from "../comps/Episodes";
+import Movie from "../comps/Movie";
 
 // code MUI
 function TabPanel(props) {
@@ -52,7 +52,6 @@ const DetailAnime = () => {
   const { id } = router.query;
   const dispatch = useDispatch();
   const animeData = useSelector((state) => state.anime.data);
-  const themes = useSelector((state) => state.anime.themes);
 
   // code MUI
   const [value, setValue] = React.useState(0);
@@ -65,7 +64,6 @@ const DetailAnime = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       await dispatch(getData(id));
-      await dispatch(getThemes(id));
     };
 
     if (id !== undefined) fetchData();
@@ -400,47 +398,7 @@ const DetailAnime = () => {
               </TabPanel>
               {/* OP & ED */}
               <TabPanel value={value} index={2}>
-                {/* <Box sx={{ height: "70vh", overflowY: "auto" }}>
-                  {themes.length > 0
-                    ? themes.map((item, index) => {
-                        return (
-                          <Accordion
-                            expanded={expanded2 === `panel${index + 1}`}
-                            onChange={handleChangeAccor2(`panel${index + 1}`)}
-                            key={index}
-                          >
-                            <AccordionSummary
-                              aria-controls="panel1d-content"
-                              id="panel1d-header"
-                            >
-                              <Typography>
-                                #{item.themeType}: {item.themeName}
-                              </Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                              <CardMedia
-                                component="video"
-                                height="500"
-                                // src={item.mirror.mirrorURL}
-                                src="https://res.cloudinary.com/dkpfs6ith/video/upload/v1640666652/ShingekiNoKyojin-OP1_hyxuix.webm"
-                                alt="movie"
-                                controls
-                              />
-
-                              <ReactPlayer
-                                url="animethemes.moe/video/Bakemonogatari-OP1.webm"
-                                controls
-                                width="100%"
-                                height="100%"
-                              />
-
-                               <video src={require(item.mirror.mirrorURL)} />
-                            </AccordionDetails>
-                          </Accordion>
-                        );
-                      })
-                    : null}
-                </Box> */}
+                <Movie title={animeData.title} />
               </TabPanel>
             </Box>
           </div>
