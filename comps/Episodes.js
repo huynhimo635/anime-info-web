@@ -61,58 +61,69 @@ const Episodes = (props) => {
 
   const dispatch = useDispatch();
   const episodes = useSelector((state) => state.episodes);
-  // const [page, setPage] = React.useState(1);
-  // const [dataShow, setDataShow] = React.useState(episodes);
+  const [page, setPage] = React.useState(1);
 
   const fetchData = async (id, page = 1) => {
     await dispatch(episodesData.getData({ id, page }));
   };
 
+  const handleOnchange = (event, p) => {
+    setPage(p);
+  };
+
   React.useEffect(() => {
     if (props.id && props.id !== "") {
       const id = props.id;
-      fetchData(id);
+      fetchData(id, page);
+
+      document.getElementById("listId").scrollTo(0, 0);
     }
-  }, [props.id]);
+  }, [props.id, page]);
 
   return (
-    <Box sx={{ height: "70vh", overflowY: "auto" }}>
-      {episodes.data.length > 0
-        ? episodes.data.map((item) => (
-            <Accordion
-              expanded={expanded === `panel${item.episode_id}`}
-              onChange={handleChangeAccor(`panel${item.episode_id}`)}
-              key={item.episode_id}
-            >
-              <AccordionSummary
-                aria-controls="panel1d-content"
-                id="panel1d-header"
+    <Box>
+      <Box sx={{ height: "70vh", overflowY: "auto" }} id="listId">
+        {episodes.data.length > 0
+          ? episodes.data.map((item) => (
+              <Accordion
+                expanded={expanded === `panel${item.episode_id}`}
+                onChange={handleChangeAccor(`panel${item.episode_id}`)}
+                key={item.episode_id}
               >
-                <Typography>{`Episode ${item.episode_id}: ${item.title} `}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                {(
-                  <Typography>
-                    Title (Japanese): {item.title_japanese}
-                  </Typography>
-                ) || null}
-                {(
-                  <Typography>Title (Romanji): {item.title_romanji}</Typography>
-                ) || null}
-                {(
-                  <Typography color="textSecondary">
-                    Aired: {new Date(item.aired).toLocaleDateString("vi-VN")}
-                  </Typography>
-                ) || null}
-              </AccordionDetails>
-            </Accordion>
-          ))
-        : null}
-
+                <AccordionSummary
+                  aria-controls="panel1d-content"
+                  id="panel1d-header"
+                >
+                  <Typography>{`Episode ${item.episode_id}: ${item.title} `}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  {(
+                    <Typography>
+                      Title (Japanese): {item.title_japanese}
+                    </Typography>
+                  ) || null}
+                  {(
+                    <Typography>
+                      Title (Romanji): {item.title_romanji}
+                    </Typography>
+                  ) || null}
+                  {(
+                    <Typography color="textSecondary">
+                      Aired: {new Date(item.aired).toLocaleDateString("vi-VN")}
+                    </Typography>
+                  ) || null}
+                </AccordionDetails>
+              </Accordion>
+            ))
+          : null}
+      </Box>
       {episodes.pages > 1 ? (
-        <Stack spacing={2}>
-          <Pagination count={10} page={1} color="inherit" />
-        </Stack>
+        <Pagination
+          count={episodes.pages}
+          page={page}
+          onChange={handleOnchange}
+          sx={{ alignItems: "flex-end", mt: 2 }}
+        />
       ) : null}
     </Box>
   );
