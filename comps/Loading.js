@@ -11,11 +11,13 @@ export default function SimpleBackdrop() {
   const loading = useSelector((state) => state.loading.loadingCustom);
   const anime = useSelector((state) => state.anime.loading);
   const episodes = useSelector((state) => state.episodes.loading);
+  const themes = useSelector((state) => state.themes.loading);
 
   React.useEffect(() => {
-    if (loading || season || seasonArchive || anime || episodes) setOpen(true);
+    if (loading || season || seasonArchive || anime || episodes || themes)
+      setOpen(true);
     else setOpen(false);
-  }, [loading, season, seasonArchive, anime, episodes]);
+  }, [loading, season, seasonArchive, anime, episodes, themes]);
 
   return (
     <div>

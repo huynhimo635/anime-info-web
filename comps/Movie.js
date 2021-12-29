@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import { styled } from "@mui/material/styles";
-import ReactPlayer from "react-player";
+import ReactPlayer from "react-player/lazy";
 
 import { getData } from "../redux/themes/themeSlice";
 
@@ -111,6 +111,7 @@ const Movie = (props) => {
                         controls
                         width="100%"
                         height="100%"
+                        // config={}
                       />
                     ) : null}
                   </AccordionDetails>
