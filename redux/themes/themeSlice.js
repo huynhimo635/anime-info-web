@@ -27,7 +27,7 @@ const themesSlice = createSlice({
 
     [getData.fulfilled]: (state, action) => {
       state.loading = false;
-      state.data = action.payload;
+      state.data = action.payload.anime.animethemes;
     },
   },
 });

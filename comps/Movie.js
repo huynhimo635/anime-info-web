@@ -58,7 +58,8 @@ const Movie = (props) => {
   };
 
   const dispatch = useDispatch();
-  const data = [];
+  const data = useSelector((state) => state.themes.data);
+  console.log(data);
 
   const fetchData = async (title) => {
     await dispatch(getData(title));
@@ -79,39 +80,38 @@ const Movie = (props) => {
     if (props.title && props.title !== "") {
       const title = convertTitleToSlug(props.title);
       fetchData(title);
-      console.log();
     }
   }, [props.title]);
 
   return (
     <Box sx={{ height: "70vh", overflowY: "auto" }}>
       {data.length > 0
-        ? data.map((item, index) => {
-            return (
-              <Accordion
-                expanded={expanded2 === `panel${index + 1}`}
-                onChange={handleChangeAccor2(`panel${index + 1}`)}
-                key={index}
-              >
-                <AccordionSummary
-                  aria-controls="panel1d-content"
-                  id="panel1d-header"
+        ? data.map((itemL) =>
+            itemL.animethemeentries.map((itemM) =>
+              itemM.videos.map((item, index) => (
+                <Accordion
+                  expanded={expanded === `panel${index + 1}`}
+                  onChange={handleChangeAccor(`panel${index + 1}`)}
+                  key={index}
                 >
-                  <Typography>
-                    #{item.themeType}: {item.themeName}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <ReactPlayer
-                    url="animethemes.moe/video/Bakemonogatari-OP1.webm"
-                    controls
-                    width="100%"
-                    height="100%"
-                  />
-                </AccordionDetails>
-              </Accordion>
-            );
-          })
+                  <AccordionSummary
+                    aria-controls="panel1d-content"
+                    id="panel1d-header"
+                  >
+                    <Typography>#{item.filename}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <ReactPlayer
+                      url={`https://animethemes.moe/video/${item.basename}`}
+                      controls
+                      width="100%"
+                      height="100%"
+                    />
+                  </AccordionDetails>
+                </Accordion>
+              ))
+            )
+          )
         : null}
     </Box>
   );
