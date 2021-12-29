@@ -178,12 +178,15 @@ export default function Home() {
             </Box>
             {/* Sort */}
             <Box sx={{ alignSelf: "flex-end" }}>
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <FormControl
+                sx={{ m: { md: 1, xs: 0 }, minWidth: { md: 120, xs: "unset" } }}
+              >
                 <Select
                   value={sort}
                   onChange={(e) => handleChangeSort(e.target.value)}
                   displayEmpty
                   inputProps={{ "aria-label": "Without label" }}
+                  size="small"
                 >
                   <MenuItem disabled value="">
                     <em>Sort by</em>
