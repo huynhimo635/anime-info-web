@@ -13,8 +13,47 @@ import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import CircularProgress from "@mui/material/CircularProgress";
 import Container from "@mui/material/Container";
+import Skeleton from "@mui/material/Skeleton";
+import { Typography } from "@material-ui/core";
 
 import ProductCard from "../comps/ProductCard";
+
+const FakeCard = () => (
+  <Box sx={{ width: "100%" }}>
+    <Typography variant="h1">
+      <Skeleton />
+    </Typography>
+    <Typography variant="h2">
+      <Skeleton animation="wave" />
+    </Typography>
+    <Typography variant="h3">
+      <Skeleton animation={false} />
+    </Typography>
+    <Typography variant="h4">
+      <Skeleton />
+    </Typography>
+    <Typography variant="h5">
+      <Skeleton animation="wave" />
+    </Typography>
+    <Typography variant="body1">
+      <Skeleton animation={false} />
+    </Typography>
+  </Box>
+);
+
+const NotFound = () => (
+  <Grid container spacing={2}>
+    <Grid item xs={12} md={4}>
+      <FakeCard />
+    </Grid>
+    <Grid item xs={12} md={4}>
+      <FakeCard />
+    </Grid>
+    <Grid item xs={12} md={4}>
+      <FakeCard />
+    </Grid>
+  </Grid>
+);
 
 // code MUI
 
@@ -145,6 +184,11 @@ const Search = () => {
     setDataShow(dataShow.concat(data));
   }, [data]);
 
+  React.useEffect(() => {
+    setDataShow([]);
+    setPage(1);
+  }, []);
+
   return (
     <div className="search-page">
       {/* show error */}
@@ -196,7 +240,9 @@ const Search = () => {
           >
             <CircularProgress color="inherit" size={50} />
           </Box>
-        ) : null}
+        ) : (
+          <NotFound />
+        )}
       </Container>
     </div>
   );
