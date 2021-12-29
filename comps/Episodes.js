@@ -8,6 +8,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import { styled } from "@mui/material/styles";
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
+import Stack from "@mui/material/Stack";
 
 import * as episodesData from "../redux/episodes/episodesSlice";
 
@@ -58,37 +61,28 @@ const Episodes = (props) => {
 
   const dispatch = useDispatch();
   const episodes = useSelector((state) => state.episodes);
-  const boxRef = React.createRef();
-  const dataRef = React.createRef();
+  // const [page, setPage] = React.useState(1);
+  // const [dataShow, setDataShow] = React.useState(episodes);
+
+  const fetchData = async (id, page = 1) => {
+    await dispatch(episodesData.getData({ id, page }));
+  };
 
   React.useEffect(() => {
-    const fetchData = async (id) => {
-      await dispatch(episodesData.getData({ id }));
-    };
-
     if (props.id && props.id !== "") {
       const id = props.id;
       fetchData(id);
     }
   }, [props.id]);
 
-  // React.useEffect(() => {
-  //   if (boxRef && boxRef.current) {
-  //     boxRef.current.addEventListener("scroll", () => {
-  //       console.log("hek");
-  //     });
-  //   }
-  // }, [boxRef, dataRef]);
-
   return (
-    <Box sx={{ height: "70vh", overflowY: "auto" }} ref={boxRef}>
+    <Box sx={{ height: "70vh", overflowY: "auto" }}>
       {episodes.data.length > 0
         ? episodes.data.map((item) => (
             <Accordion
               expanded={expanded === `panel${item.episode_id}`}
               onChange={handleChangeAccor(`panel${item.episode_id}`)}
               key={item.episode_id}
-              ref={dataRef}
             >
               <AccordionSummary
                 aria-controls="panel1d-content"
@@ -114,6 +108,12 @@ const Episodes = (props) => {
             </Accordion>
           ))
         : null}
+
+      {episodes.pages > 1 ? (
+        <Stack spacing={2}>
+          <Pagination count={10} page={1} color="inherit" />
+        </Stack>
+      ) : null}
     </Box>
   );
 };
