@@ -52,14 +52,13 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 const Movie = (props) => {
   //Mui code
-  const [expanded, setExpanded] = React.useState("panel1");
+  const [expanded, setExpanded] = React.useState("");
   const handleChangeAccor = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
   const dispatch = useDispatch();
   const data = useSelector((state) => state.themes.data);
-  console.log(data);
 
   const fetchData = async (title) => {
     await dispatch(getData(title));
@@ -74,7 +73,8 @@ const Movie = (props) => {
         .replace(/\_\_\_\_\_/gi, "_")
         .replace(/\_\_\_\_/gi, "_")
         .replace(/\_\_\_/gi, "_")
-        .replace(/\_\_/gi, "_");
+        .replace(/\_\_/gi, "_")
+        .replace("-", "_");
     };
 
     if (props.title && props.title !== "") {
@@ -87,11 +87,15 @@ const Movie = (props) => {
     <Box sx={{ height: "70vh", overflowY: "auto" }}>
       {data.length > 0
         ? data.map((itemL) =>
-            itemL.animethemeentries.map((itemM) =>
-              itemM.videos.map((item) => (
+            itemL.animethemeentries.map((itemM) => {
+              const item = itemM.videos.reduce((prev, cur) =>
+                prev.resolution >= cur.resolution ? prev : cur
+              );
+
+              return (
                 <Accordion
-                  expanded={expanded === `panel${item.id}`}
-                  onChange={handleChangeAccor(`panel${item.id}`)}
+                  expanded={expanded === `${item.id}`}
+                  onChange={handleChangeAccor(`${item.id}`)}
                   key={item.id}
                 >
                   <AccordionSummary
@@ -101,16 +105,18 @@ const Movie = (props) => {
                     <Typography>#{item.filename}</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <ReactPlayer
-                      url={`https://animethemes.moe/video/${item.basename}`}
-                      controls
-                      width="100%"
-                      height="100%"
-                    />
+                    {expanded === item.id.toString() ? (
+                      <ReactPlayer
+                        url={`https://animethemes.moe/video/${item.basename}`}
+                        controls
+                        width="100%"
+                        height="100%"
+                      />
+                    ) : null}
                   </AccordionDetails>
                 </Accordion>
-              ))
-            )
+              );
+            })
           )
         : null}
     </Box>
