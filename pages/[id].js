@@ -85,28 +85,192 @@ const DetailAnime = () => {
                 />
               }
 
-              <Typography
-                variant="h5"
-                component="div"
-                noWrap
-                sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
-                align="center"
-                color="textSecondary"
-                mt={2}
+              {/* Responsive for >= tablet   */}
+              <Box
+                sx={{
+                  textAlign: "center",
+                  display: { md: "unset", xs: "none" },
+                }}
               >
-                Rating
-              </Typography>
+                <Typography
+                  variant="h5"
+                  component="div"
+                  noWrap
+                  sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                  color="textSecondary"
+                  mt={2}
+                >
+                  Rating
+                </Typography>
 
+                <Typography
+                  variant="h4"
+                  component="div"
+                  noWrap
+                  sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                  color="textPrimary"
+                  mt={2}
+                >
+                  {animeData.score || "--"} / 10
+                </Typography>
+
+                <Typography
+                  variant="h5"
+                  component="div"
+                  noWrap
+                  sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                  color="textSecondary"
+                  mt={2}
+                >
+                  {animeData.scored_by || "--"} ratings
+                </Typography>
+
+                <Typography
+                  variant="h5"
+                  component="div"
+                  noWrap
+                  sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                  color="textSecondary"
+                  mt={4}
+                >
+                  Official Website
+                </Typography>
+
+                <Typography
+                  variant="h5"
+                  component="div"
+                  noWrap
+                  sx={{ flexGrow: 1, mr: 2 }}
+                  color="textPrimary"
+                  mt={2}
+                >
+                  {animeData.external_links
+                    ? animeData.external_links
+                        .filter(
+                          (item) => item.name.toLowerCase() === "official site"
+                        )
+                        .map((item, key) => (
+                          <a
+                            key={key}
+                            href={item.url}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {item.url}
+                          </a>
+                        ))
+                    : "N/A"}
+                </Typography>
+              </Box>
+
+              {/* Responsive for mobile   */}
+              <Box sx={{ display: { md: "none", xs: "unset" } }}>
+                <Typography
+                  variant="h5"
+                  component="div"
+                  noWrap
+                  sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                  align="left"
+                  color="textPrimary"
+                  mt={2}
+                >
+                  {animeData.title || "N/A"} (Romaji)
+                </Typography>
+
+                {animeData.title_english ? (
+                  <Typography
+                    variant="h5"
+                    component="div"
+                    noWrap
+                    sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                    align="left"
+                    color="textPrimary"
+                    mt={2}
+                  >
+                    {animeData.title_english || "N/A"} (English)
+                  </Typography>
+                ) : null}
+
+                {animeData.title_japanese ? (
+                  <Typography
+                    variant="h5"
+                    component="div"
+                    noWrap
+                    sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                    align="left"
+                    color="textPrimary"
+                    mt={2}
+                  >
+                    {animeData.title_japanese || "N/A"} (japanese)
+                  </Typography>
+                ) : null}
+              </Box>
+
+              {/*  */}
+            </Box>
+          </div>
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <div className="anime-details__content">
+            {/* Responsive for >= tablet   */}
+            <Box sx={{ display: { md: "unset", xs: "none" } }}>
               <Typography
                 variant="h4"
                 component="div"
                 noWrap
                 sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
-                align="center"
+                align="left"
                 color="textPrimary"
                 mt={2}
               >
-                {animeData.score || "--"} / 10
+                {animeData.title || "N/A"} (Romaji)
+              </Typography>
+
+              {animeData.title_english ? (
+                <Typography
+                  variant="h4"
+                  component="div"
+                  noWrap
+                  sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                  align="left"
+                  color="textPrimary"
+                  mt={2}
+                >
+                  {animeData.title_english || "N/A"} (English)
+                </Typography>
+              ) : null}
+
+              {animeData.title_japanese ? (
+                <Typography
+                  variant="h4"
+                  component="div"
+                  noWrap
+                  sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                  align="left"
+                  color="textPrimary"
+                  mt={2}
+                >
+                  {animeData.title_japanese || "N/A"} (japanese)
+                </Typography>
+              ) : null}
+            </Box>
+
+            {/* Responsive for >= tablet   */}
+            <Box
+              sx={{
+                textAlign: "left",
+                display: { md: "none", xs: "unset" },
+              }}
+            >
+              <Typography
+                variant="h5"
+                component="div"
+                noWrap
+                sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
+                color="textPrimary"
+                mt={2}
+              >
+                Rating {animeData.score || "--"} / 10
               </Typography>
 
               <Typography
@@ -114,7 +278,6 @@ const DetailAnime = () => {
                 component="div"
                 noWrap
                 sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
-                align="center"
                 color="textSecondary"
                 mt={2}
               >
@@ -126,7 +289,6 @@ const DetailAnime = () => {
                 component="div"
                 noWrap
                 sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
-                align="center"
                 color="textSecondary"
                 mt={4}
               >
@@ -138,7 +300,6 @@ const DetailAnime = () => {
                 component="div"
                 noWrap
                 sx={{ flexGrow: 1, mr: 2 }}
-                align="center"
                 color="textPrimary"
                 mt={2}
               >
@@ -160,49 +321,6 @@ const DetailAnime = () => {
                   : "N/A"}
               </Typography>
             </Box>
-          </div>
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <div className="anime-details__content">
-            <Typography
-              variant="h4"
-              component="div"
-              noWrap
-              sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
-              align="left"
-              color="textPrimary"
-              mt={2}
-            >
-              {animeData.title || "N/A"} (Romaji)
-            </Typography>
-
-            {animeData.title_english ? (
-              <Typography
-                variant="h4"
-                component="div"
-                noWrap
-                sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
-                align="left"
-                color="textPrimary"
-                mt={2}
-              >
-                {animeData.title_english || "N/A"} (English)
-              </Typography>
-            ) : null}
-
-            {animeData.title_japanese ? (
-              <Typography
-                variant="h4"
-                component="div"
-                noWrap
-                sx={{ flexGrow: 1, mr: 2, textTransform: "capitalize" }}
-                align="left"
-                color="textPrimary"
-                mt={2}
-              >
-                {animeData.title_japanese || "N/A"} (japanese)
-              </Typography>
-            ) : null}
 
             <Box
               sx={{
@@ -230,20 +348,22 @@ const DetailAnime = () => {
                 <Box
                   sx={{
                     border: "1px white solid",
-                    p: 4,
+                    p: { md: 4, xs: 1 },
                     background: "primary",
+                    maxHeight: "100vh",
+                    overflowY: "auto",
                   }}
                 >
                   <Box
                     sx={{
                       borderBottom: "1px white solid",
-                      p: { md: 3, xs: 0 },
+                      p: { md: 3, xs: 2 },
                     }}
                   >
                     {/* Summary Info */}
                     <Grid container spacing={2}>
                       {/* Format */}
-                      <Grid item xs={3}>
+                      <Grid item md={3} xs={12}>
                         <Typography
                           variant="p"
                           component="div"
@@ -263,7 +383,7 @@ const DetailAnime = () => {
                         </Typography>
                       </Grid>
                       {/* Source */}
-                      <Grid item xs={3}>
+                      <Grid item md={3} xs={12}>
                         <Typography
                           variant="p"
                           component="div"
@@ -284,7 +404,7 @@ const DetailAnime = () => {
                         </Typography>
                       </Grid>
                       {/* Episodes */}
-                      <Grid item xs={3}>
+                      <Grid item md={3} xs={12}>
                         <Typography
                           variant="p"
                           component="div"
@@ -305,7 +425,7 @@ const DetailAnime = () => {
                         </Typography>
                       </Grid>
                       {/* runtime */}
-                      <Grid item xs={3}>
+                      <Grid item md={3} xs={12}>
                         <Typography
                           variant="p"
                           component="div"
@@ -324,7 +444,7 @@ const DetailAnime = () => {
                         </Typography>
                       </Grid>
                       {/* Studio */}
-                      <Grid item xs={6}>
+                      <Grid item md={6} xs={12}>
                         <Typography
                           variant="p"
                           component="div"
@@ -349,7 +469,7 @@ const DetailAnime = () => {
                         </Typography>
                       </Grid>
                       {/* tag */}
-                      <Grid item xs={6}>
+                      <Grid item md={6} xs={12}>
                         <Typography
                           variant="p"
                           component="div"
