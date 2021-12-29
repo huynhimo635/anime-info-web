@@ -57,9 +57,6 @@ const ProductCard = (props) => {
                 "&:hover": {
                   overflow: "auto",
                 },
-                "&::-webkit-scrollbar": {
-                  display: "none",
-                },
               }}
               component="div"
             >
