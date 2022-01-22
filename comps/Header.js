@@ -157,7 +157,7 @@ const Header = (props) => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Box>
+      <Box sx={{ zIndex: "tooltip" }}>
         <ScrollTop {...props}>
           <Fab color="main" size="large">
             <KeyboardArrowUpIcon />

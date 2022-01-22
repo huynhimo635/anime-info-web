@@ -226,7 +226,9 @@ const Search = () => {
               ))}
             </Grid>
           </Box>
-        ) : null}
+        ) : (
+          <NotFound />
+        )}
         {/* infinite loading */}
         {loadingInner ? (
           <Box
@@ -240,9 +242,7 @@ const Search = () => {
           >
             <CircularProgress color="inherit" size={50} />
           </Box>
-        ) : (
-          <NotFound />
-        )}
+        ) : null}
       </Container>
     </div>
   );

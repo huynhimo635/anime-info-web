@@ -45,6 +45,7 @@ const ProductCard = (props) => {
             }}
             src={data.image_url}
             alt="Live from space album cover"
+            loading="lazy"
           />
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <CardContent

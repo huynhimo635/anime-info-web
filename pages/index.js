@@ -124,7 +124,6 @@ export default function Home() {
                   edge="start"
                   color="inherit"
                   aria-label="left"
-                  sx={{ mr: 2 }}
                   onClick={() => {
                     dispatch(seasonArchive.back());
                   }}
@@ -170,10 +169,10 @@ export default function Home() {
                 allowScrollButtonsMobile
                 aria-label="scrollable auto tabs example"
               >
-                <Tab label="TV" {...a11yProps(0)} />
-                <Tab label="Movie" {...a11yProps(1)} />
-                <Tab label="OVAs & Others" {...a11yProps(2)} />
                 <Tab label="All" {...a11yProps(3)} />
+                <Tab label="TV" {...a11yProps(0)} disabled/>
+                <Tab label="Movie" {...a11yProps(1)} disabled/>
+                <Tab label="OVAs & Others" {...a11yProps(2)} disabled/>
               </Tabs>
             </Box>
             {/* Sort */}
@@ -204,7 +203,7 @@ export default function Home() {
 
       <div className="content">
         {/* TV */}
-        <TabPanel value={value} index={0}>
+        <TabPanel value={value} index={3}>
           <Grid container spacing={2}>
             {tvData.length > 0
               ? tvData.map((data, key) => (
@@ -240,7 +239,7 @@ export default function Home() {
           </Grid>
         </TabPanel>
         {/* All */}
-        <TabPanel value={value} index={3}>
+        <TabPanel value={value} index={0}>
           <Grid container spacing={2}>
             {allData.length > 0
               ? allData.map((data, key) => (

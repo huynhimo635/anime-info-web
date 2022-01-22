@@ -89,17 +89,17 @@ const seasonSlice = createSlice({
       state.loading = false;
       state.allData = action.payload;
 
-      state.tvData = state.allData.filter(
-        (item) => item.type.toLowerCase() === "tv"
-      );
-      state.movieData = state.allData.filter(
-        (item) => item.type.toLowerCase() === "movie"
-      );
-      state.otherData = state.allData.filter(
-        (item) =>
-          item.type.toLowerCase() !== "tv" &&
-          item.type.toLowerCase() !== "movie"
-      );
+      // state.tvData = state.allData.filter(
+      //   (item) => item.type?.toLowerCase() === "tv"
+      // );
+      // state.movieData = state.allData.filter(
+      //   (item) => item.type?.toLowerCase() === "movie"
+      // );
+      // state.otherData = state.allData.filter(
+      //   (item) =>
+      //     item.type?.toLowerCase() !== "tv" &&
+      //     item.type?.toLowerCase() !== "movie"
+      // );
     },
   },
 });
